@@ -1,0 +1,2 @@
+bsp/platform/STM32F4/startup/gcc/startup_stm32f401xe.o: \
+ C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/startup/gcc/startup_stm32f401xe.s

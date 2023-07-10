@@ -1,0 +1,13 @@
+/*
+ * motor_bldc.h
+ *
+ *  Created on: 16 mag 2022
+ *      Author: gsavian
+ */
+
+#ifndef APP_ENGINE_MOTOR_BLDC_H_
+#define APP_ENGINE_MOTOR_BLDC_H_
+
+
+
+#endif /* APP_ENGINE_MOTOR_BLDC_H_ */

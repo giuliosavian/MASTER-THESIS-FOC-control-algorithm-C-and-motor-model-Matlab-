@@ -1,0 +1,10 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/MCLib/Any/Src/speed_pos_fdbk.c:62:16:SPD_GetElAngle	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/MCLib/Any/Src/speed_pos_fdbk.c:81:16:SPD_GetMecAngle	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/MCLib/Any/Src/speed_pos_fdbk.c:95:16:SPD_GetAvrgMecSpeedUnit	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/MCLib/Any/Src/speed_pos_fdbk.c:112:16:SPD_GetElSpeedDpp	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/MCLib/Any/Src/speed_pos_fdbk.c:136:16:SPD_GetInstElSpeedDpp	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/MCLib/Any/Src/speed_pos_fdbk.c:155:13:SPD_Check	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/MCLib/Any/Src/speed_pos_fdbk.c:192:13:SPD_IsMecSpeedReliable	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/MCLib/Any/Src/speed_pos_fdbk.c:287:16:SPD_GetS16Speed	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/MCLib/Any/Src/speed_pos_fdbk.c:315:16:SPD_GetElToMecRatio	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/MCLib/Any/Src/speed_pos_fdbk.c:331:13:SPD_SetElToMecRatio	16	static

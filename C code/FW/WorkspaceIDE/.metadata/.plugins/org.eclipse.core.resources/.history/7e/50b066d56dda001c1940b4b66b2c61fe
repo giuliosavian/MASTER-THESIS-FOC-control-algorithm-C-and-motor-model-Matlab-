@@ -1,0 +1,9 @@
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\cmsis\include\core_cm4.h:1790:22:NVIC_SystemReset	4	static,ignoring_inline_asm
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_pwr.c:9:6:HALI_PWR_Init	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_pwr.c:15:6:HALI_PWR_Deinit	4	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_pwr.c:20:6:HALI_PWR_SetVoltageRegulatorMode	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_pwr.c:24:6:HALI_PWR_GotoStandby	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_pwr.c:30:6:HALI_PWR_GotoStop	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_pwr.c:46:6:HALI_PWR_SoftwareReset	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_pwr.c:51:6:HALI_PWR_ClearResetFlags	4	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_pwr.c:57:23:HALI_PWR_GetResetMode	16	static

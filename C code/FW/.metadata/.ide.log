@@ -1,0 +1,32 @@
+2022-06-09 13:01:26,815 [INFO] Activator:177 - 
+
+
+2022-06-09 13:01:26,818 [INFO] Activator:178 - !SESSION log4j initialized
+2022-06-09 13:01:33,977 [ERROR] AnalyticsContext:980 - The ST intranet updater server is unknown: mcucrossselector.codex.cro.st.com
+2022-06-09 14:16:25,027 [INFO] Activator:177 - 
+
+
+2022-06-09 14:16:25,033 [INFO] Activator:178 - !SESSION log4j initialized
+2022-06-09 14:16:36,678 [ERROR] AnalyticsContext:980 - The ST intranet updater server is unknown: mcucrossselector.codex.cro.st.com
+2022-06-09 14:17:38,203 [INFO] Activator:177 - 
+
+
+2022-06-09 14:17:38,209 [INFO] Activator:178 - !SESSION log4j initialized
+2022-06-09 14:17:47,970 [ERROR] AnalyticsContext:980 - The ST intranet updater server is unknown: mcucrossselector.codex.cro.st.com
+2022-06-09 14:20:50,174 [INFO] Activator:177 - 
+
+
+2022-06-09 14:20:50,180 [INFO] Activator:178 - !SESSION log4j initialized
+2022-06-09 14:21:00,139 [ERROR] AnalyticsContext:980 - The ST intranet updater server is unknown: mcucrossselector.codex.cro.st.com
+2022-06-09 14:21:20,147 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] Exception in thread "Thread-13" java.lang.NullPointerException
+2022-06-09 14:21:20,149 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] 	at org.eclipse.core.runtime.Path.makeRelativeTo(Path.java:931)
+2022-06-09 14:21:20,157 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] 	at com.st.stm32cube.ide.mcu.stackanalyzer.ui.StackAnalyzerView.createMangledToSuSymbolMapping(StackAnalyzerView.java:1054)
+2022-06-09 14:21:20,163 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] 	at com.st.stm32cube.ide.mcu.stackanalyzer.ui.StackAnalyzerView.inputChanged(StackAnalyzerView.java:896)
+2022-06-09 14:21:20,168 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] 	at com.st.stm32cube.ide.mcu.stackanalyzer.ui.StackAnalyzerView.lambda$15(StackAnalyzerView.java:1256)
+2022-06-09 14:21:20,172 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] 	at java.base/java.lang.Thread.run(Thread.java:829)
+2022-06-09 14:21:24,088 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] Exception in thread "Thread-16" java.lang.NullPointerException
+2022-06-09 14:21:24,092 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] 	at org.eclipse.core.runtime.Path.makeRelativeTo(Path.java:931)
+2022-06-09 14:21:24,100 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] 	at com.st.stm32cube.ide.mcu.stackanalyzer.ui.StackAnalyzerView.createMangledToSuSymbolMapping(StackAnalyzerView.java:1054)
+2022-06-09 14:21:24,106 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] 	at com.st.stm32cube.ide.mcu.stackanalyzer.ui.StackAnalyzerView.inputChanged(StackAnalyzerView.java:896)
+2022-06-09 14:21:24,113 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] 	at com.st.stm32cube.ide.mcu.stackanalyzer.ui.StackAnalyzerView.lambda$15(StackAnalyzerView.java:1256)
+2022-06-09 14:21:24,118 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] 	at java.base/java.lang.Thread.run(Thread.java:829)

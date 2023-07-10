@@ -1,0 +1,27 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+# Toolchain: GNU Tools for STM32 (10.3-2021.10)
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/boards/NUCLEOF4/board_io.c 
+
+OBJS += \
+./bsp/boards/NUCLEOF4/board_io.o 
+
+C_DEPS += \
+./bsp/boards/NUCLEOF4/board_io.d 
+
+
+# Each subdirectory must supply rules for building sources it contributes
+bsp/boards/NUCLEOF4/board_io.o: C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/boards/NUCLEOF4/board_io.c bsp/boards/NUCLEOF4/subdir.mk
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DBOARDNAME=NUCLEOF4 -DDEBUG -c -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/debug/systemview" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/stm32f4" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/driver/bldc/MCLib/F4xx/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/driver/bldc/MCLib/Any/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/config" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/cmsis/Include" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/headers" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/hll/STM32F4xx_HAL/inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+
+clean: clean-bsp-2f-boards-2f-NUCLEOF4
+
+clean-bsp-2f-boards-2f-NUCLEOF4:
+	-$(RM) ./bsp/boards/NUCLEOF4/board_io.d ./bsp/boards/NUCLEOF4/board_io.o ./bsp/boards/NUCLEOF4/board_io.su
+
+.PHONY: clean-bsp-2f-boards-2f-NUCLEOF4
+

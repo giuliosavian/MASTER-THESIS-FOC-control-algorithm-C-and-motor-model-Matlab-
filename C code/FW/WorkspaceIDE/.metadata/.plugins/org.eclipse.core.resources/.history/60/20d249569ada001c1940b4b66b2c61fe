@@ -1,0 +1,144 @@
+/*
+ * bldc_driver.h
+ *
+ *  Created on: 11 mag 2018
+ *      Author: fpasquetto
+ */
+
+#ifndef _DRIVER_BLDC_H_
+#define _DRIVER_BLDC_H_
+
+typedef enum {
+	BLDC_INSTANCE_1,
+	BLDC_INSTANCE_2,
+	BLDC_MAX_INSTANCES
+} bldc_instance_t;
+
+typedef struct {
+	adc_instance_t adc_instance;
+	tim_instance_t tim_instance;
+	adc_channel_t adc_ch_phase1;
+	adc_channel_t adc_ch_phase2;
+	adc_channel_t adc_ch_phase3;
+	uint32_t pwm_freq;
+	uint8_t priority;
+	bool break_enabled;
+} bldc_settings_t;
+
+
+/**
+ * @brief Definitions of the BLDC event callback function
+ *
+ * The event callback is called by the driver when:
+ * -
+ * -
+ *
+ * @note The callback function is called within an interrupt context
+ */
+typedef enum {
+	BLDC_EVENT_ANY,
+	BLDC_EVENT_BREAK,
+	BLDC_EVENT_I_SAMPLED,
+	BLDC_EVENT_PWM_PERIOD,
+} BLDC_EVENT_T;
+typedef void (*bldc_callback_t)(BLDC_EVENT_T ev);
+
+
+typedef struct {
+	uint16_t		sign;
+	uint8_t    		instance	: 4;
+	uint8_t   		status		: 1;
+	uint8_t			reserved	: 3;
+	uint8_t			priority;
+	bldc_callback_t	pCallback;
+	uint8_t 		adc_instance;
+	uint8_t 		tim_instance;
+	uint32_t		tim_arr;
+} bldc_handler_t;
+
+
+/**
+ * @brief BLDC driver initialization
+ *
+ * Instance an BLDC driver entry using the handler structure passed by the application.
+ *
+ * @param handler Pointer to the driver handler object allocated by the calling application
+ * @param instance The BLDC instance index (BLDC_INSTANCE_1, BLDC_INSTANCE_2, ...)
+ */
+void bldc_init(bldc_handler_t* handler, bldc_instance_t instance);
+
+
+/**
+ * @brief BLDC driver remove
+ *
+ * Remove the BLDC driver handled by the passed handler structure
+ *
+ * @param handler Pointer to the driver handler object allocated by the calling application
+ */
+void bldc_deinit(bldc_handler_t* handler);
+
+
+/**
+ * @brief Return the BLDC driver handler
+ *
+ * Return the pointer to the BLDC handler structure. This is not NULL only if
+ * driver instance was initialized (calling bldc_init)
+ *
+ * @param instance The BLDC instance index (BLDC_INSTANCE_1, BLDC_INSTANCE_2, ...)
+ * @return Pointer to the driver handler object allocated by the calling application
+ */
+bldc_handler_t* bldc_get_handler(bldc_instance_t instance);
+
+
+/**
+ * @brief BLDC settings initialization
+ *
+ * @param settings The settings structure to be initialized (can be NULL)
+ */
+void bldc_init_settings(bldc_settings_t* settings);
+
+
+/**
+ * @brief Set a callback function to be called on some specific events:
+ *
+ * The callback is called when:
+ * -
+ * -
+ *
+ * @param handler Pointer to the driver handler object allocated by the calling application
+ * @param callback Callback function pointer
+ * @return TSUCC if the callback function was set, else TFAIL.
+ */
+T_ERR bldc_set_callback(bldc_handler_t *handler, bldc_callback_t callback);
+
+/**
+ * @brief Start the BLDC operation with the specified settings
+ *
+ * @param handler Pointer to the driver handler object allocated by the calling application
+ * @param settings Pointer to the settings structure containing the BLDC configuration
+ *
+ * @return TSUCC if the driver was opened, else TFAIL.
+ */
+T_ERR bldc_open(bldc_handler_t* handler, bldc_settings_t *settings);
+
+/**
+ * @brief Stop the BLDC operation
+ *
+ * @param handler Pointer to the driver handler object allocated by the calling application
+ * @return TSUCC if the driver was closed, else TFAIL.
+ */
+T_ERR bldc_close(bldc_handler_t* handler);
+
+
+/*
+ *
+ */
+float bldc_getSpeed(void);
+float bldc_getIq( void );
+void bldc_setReference(float IqRef);
+bool bldc_offsetCalibrationWait(bool start);
+void bldc_bootcapCharge(void);
+void bldc_driverStart(void);
+void bldc_driverStop(void);
+
+#endif /* _DRIVER_BLDC_H_ */

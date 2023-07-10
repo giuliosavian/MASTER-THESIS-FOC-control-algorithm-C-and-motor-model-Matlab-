@@ -1,0 +1,72 @@
+bsp/utilities/src/base_timer.o: \
+ C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/base_timer.c \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\config\sdk_inc.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\config\sdk_config.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\boards\nucleof4\board_def.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\cpu_def.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\rtos\rtos_def.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\boards\nucleof4\board_io.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_gpio.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\utilities\inc\circular_buffer.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\utilities\inc\simple_queue.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\utilities\inc\comdev.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\utilities\inc\memdev.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\utilities\inc\rtcdev.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\rtos\osa\osa.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\config\sdk_config.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\rtos\osa\osa_nortos.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\utilities\inc\queue_msg.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_common.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_peripheral.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_interrupt.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_pwr.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_rtc.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_watchdog.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_adc.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_flash.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_i2c.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_spi.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_tim.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_uart.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_tduart.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_crc.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_eep.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_ltduart.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\debug\inc\debug_trace.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\utilities\inc\base_timer.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\utilities\inc\utilities.h
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\config\sdk_inc.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\config\sdk_config.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\boards\nucleof4\board_def.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\cpu_def.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\rtos\rtos_def.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\boards\nucleof4\board_io.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_gpio.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\utilities\inc\circular_buffer.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\utilities\inc\simple_queue.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\utilities\inc\comdev.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\utilities\inc\memdev.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\utilities\inc\rtcdev.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\rtos\osa\osa.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\config\sdk_config.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\rtos\osa\osa_nortos.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\utilities\inc\queue_msg.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_common.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_peripheral.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_interrupt.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_pwr.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_rtc.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_watchdog.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_adc.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_flash.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_i2c.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_spi.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_tim.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_uart.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_tduart.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_crc.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_eep.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_ltduart.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\debug\inc\debug_trace.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\utilities\inc\base_timer.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\utilities\inc\utilities.h:

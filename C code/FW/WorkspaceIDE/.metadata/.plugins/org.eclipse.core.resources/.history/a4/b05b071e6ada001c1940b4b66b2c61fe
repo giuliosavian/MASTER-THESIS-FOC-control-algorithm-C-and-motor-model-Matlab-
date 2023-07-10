@@ -1,0 +1,7 @@
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/Src/regular_conversion_manager.c:184:9:RCM_RegisterRegConv	16	static,ignoring_inline_asm
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/Src/regular_conversion_manager.c:147:9:RCM_RegisterRegConv_WithCB	16	static
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/Src/regular_conversion_manager.c:270:10:RCM_ExecRegularConv	0	static,ignoring_inline_asm
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/Src/regular_conversion_manager.c:301:6:RCM_RequestUserConv	0	static
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/Src/regular_conversion_manager.c:326:10:RCM_GetUserConv	0	static
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/Src/regular_conversion_manager.c:348:6:RCM_ExecUserConv	16	static
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/Src/regular_conversion_manager.c:378:21:RCM_GetUserConvState	0	static

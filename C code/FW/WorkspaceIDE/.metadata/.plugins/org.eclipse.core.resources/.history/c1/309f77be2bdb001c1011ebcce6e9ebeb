@@ -1,0 +1,32 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+# Toolchain: GNU Tools for STM32 (10.3-2021.10)
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/main.c \
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/powermanager.c 
+
+OBJS += \
+./app/main.o \
+./app/powermanager.o 
+
+C_DEPS += \
+./app/main.d \
+./app/powermanager.d 
+
+
+# Each subdirectory must supply rules for building sources it contributes
+app/main.o: C:/Users/gsavian/Desktop/bldcmotor/FW/app/main.c app/subdir.mk
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DBOARDNAME=NUCLEOF4 -DDEBUG -c -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/cmsis/Include" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/headers" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/hll/STM32F4xx_HAL/inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/config" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/MCLib/Any/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../app" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+app/powermanager.o: C:/Users/gsavian/Desktop/bldcmotor/FW/app/powermanager.c app/subdir.mk
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DBOARDNAME=NUCLEOF4 -DDEBUG -c -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/cmsis/Include" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/headers" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/hll/STM32F4xx_HAL/inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/config" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/MCLib/Any/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../app" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+
+clean: clean-app
+
+clean-app:
+	-$(RM) ./app/main.d ./app/main.o ./app/main.su ./app/powermanager.d ./app/powermanager.o ./app/powermanager.su
+
+.PHONY: clean-app
+

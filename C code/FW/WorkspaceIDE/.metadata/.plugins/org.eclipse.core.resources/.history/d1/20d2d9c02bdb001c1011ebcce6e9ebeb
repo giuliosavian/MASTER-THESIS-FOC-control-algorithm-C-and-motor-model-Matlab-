@@ -1,0 +1,52 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+# Toolchain: GNU Tools for STM32 (10.3-2021.10)
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/base_timer.c \
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/circular_buffer.c \
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/queue_msg.c \
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/rtcdev.c \
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/simple_queue.c \
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/utilities.c 
+
+OBJS += \
+./bsp/utilities/src/base_timer.o \
+./bsp/utilities/src/circular_buffer.o \
+./bsp/utilities/src/queue_msg.o \
+./bsp/utilities/src/rtcdev.o \
+./bsp/utilities/src/simple_queue.o \
+./bsp/utilities/src/utilities.o 
+
+C_DEPS += \
+./bsp/utilities/src/base_timer.d \
+./bsp/utilities/src/circular_buffer.d \
+./bsp/utilities/src/queue_msg.d \
+./bsp/utilities/src/rtcdev.d \
+./bsp/utilities/src/simple_queue.d \
+./bsp/utilities/src/utilities.d 
+
+
+# Each subdirectory must supply rules for building sources it contributes
+bsp/utilities/src/base_timer.o: C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/base_timer.c bsp/utilities/src/subdir.mk
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DBOARDNAME=NUCLEOF4 -DDEBUG -c -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/debug/systemview" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/stm32f4" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/driver/bldc/MCLib/F4xx/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/driver/bldc/MCLib/Any/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/config" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/cmsis/Include" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/headers" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/hll/STM32F4xx_HAL/inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+bsp/utilities/src/circular_buffer.o: C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/circular_buffer.c bsp/utilities/src/subdir.mk
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DBOARDNAME=NUCLEOF4 -DDEBUG -c -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/debug/systemview" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/stm32f4" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/driver/bldc/MCLib/F4xx/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/driver/bldc/MCLib/Any/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/config" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/cmsis/Include" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/headers" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/hll/STM32F4xx_HAL/inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+bsp/utilities/src/queue_msg.o: C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/queue_msg.c bsp/utilities/src/subdir.mk
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DBOARDNAME=NUCLEOF4 -DDEBUG -c -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/debug/systemview" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/stm32f4" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/driver/bldc/MCLib/F4xx/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/driver/bldc/MCLib/Any/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/config" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/cmsis/Include" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/headers" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/hll/STM32F4xx_HAL/inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+bsp/utilities/src/rtcdev.o: C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/rtcdev.c bsp/utilities/src/subdir.mk
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DBOARDNAME=NUCLEOF4 -DDEBUG -c -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/debug/systemview" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/stm32f4" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/driver/bldc/MCLib/F4xx/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/driver/bldc/MCLib/Any/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/config" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/cmsis/Include" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/headers" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/hll/STM32F4xx_HAL/inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+bsp/utilities/src/simple_queue.o: C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/simple_queue.c bsp/utilities/src/subdir.mk
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DBOARDNAME=NUCLEOF4 -DDEBUG -c -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/debug/systemview" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/stm32f4" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/driver/bldc/MCLib/F4xx/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/driver/bldc/MCLib/Any/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/config" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/cmsis/Include" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/headers" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/hll/STM32F4xx_HAL/inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+bsp/utilities/src/utilities.o: C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/utilities.c bsp/utilities/src/subdir.mk
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DBOARDNAME=NUCLEOF4 -DDEBUG -c -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/debug/systemview" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/stm32f4" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/driver/bldc/MCLib/F4xx/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/driver/bldc/MCLib/Any/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/config" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/cmsis/Include" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/headers" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/hll/STM32F4xx_HAL/inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+
+clean: clean-bsp-2f-utilities-2f-src
+
+clean-bsp-2f-utilities-2f-src:
+	-$(RM) ./bsp/utilities/src/base_timer.d ./bsp/utilities/src/base_timer.o ./bsp/utilities/src/base_timer.su ./bsp/utilities/src/circular_buffer.d ./bsp/utilities/src/circular_buffer.o ./bsp/utilities/src/circular_buffer.su ./bsp/utilities/src/queue_msg.d ./bsp/utilities/src/queue_msg.o ./bsp/utilities/src/queue_msg.su ./bsp/utilities/src/rtcdev.d ./bsp/utilities/src/rtcdev.o ./bsp/utilities/src/rtcdev.su ./bsp/utilities/src/simple_queue.d ./bsp/utilities/src/simple_queue.o ./bsp/utilities/src/simple_queue.su ./bsp/utilities/src/utilities.d ./bsp/utilities/src/utilities.o ./bsp/utilities/src/utilities.su
+
+.PHONY: clean-bsp-2f-utilities-2f-src
+

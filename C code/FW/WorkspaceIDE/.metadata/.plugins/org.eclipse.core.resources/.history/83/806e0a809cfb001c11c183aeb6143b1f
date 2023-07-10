@@ -1,0 +1,249 @@
+/*
+ * foc_controller.c
+ *
+ *  Created on: 2 mag 2022
+ *      Author: fpasquetto
+ */
+#include "bldc_def.h"
+#include "mc_type.h"
+#include "foc_controller.h"
+#include "pmsm_motor_parameters.h"
+#include "parameters_conversion.h"
+
+static FOCVars_t FOCVars[NBR_OF_MOTORS];
+static PWMC_Handle_t *pwmcHandle[NBR_OF_MOTORS];
+static CircleLimitation_Handle_t *pCLM[NBR_OF_MOTORS];
+static int16_t g_dbgfoc_Iqref;
+static int16_t g_dbgfoc_Iq;
+static int16_t g_dbgfoc_Vq;
+static int16_t g_dbgfoc_Valpha;
+static int16_t g_dbgfoc_Vbeta;
+//static int16_t g_dbgfoc_Iqfilt;
+//static int16_t g_dbgfoc_Idfilt;
+//static int16_t g_dbgfoc_ua ;
+//static int16_t g_dbgfoc_ub ;
+//static int16_t g_dbgfoc_uc ;
+
+/**
+  * @brief  PI / PID Id loop parameters Motor 1
+  */
+PID_Handle_t PIDIdHandle_M1 =
+{
+  .hDefKpGain          = (int16_t)PID_FLUX_KP_DEFAULT,
+  .hDefKiGain          = (int16_t)PID_FLUX_KI_DEFAULT,
+  .wUpperIntegralLimit = (int32_t)INT16_MAX * TF_KIDIV,
+  .wLowerIntegralLimit = (int32_t)-INT16_MAX * TF_KIDIV,
+  .hUpperOutputLimit       = INT16_MAX,
+  .hLowerOutputLimit       = -INT16_MAX,
+  .hKpDivisor          = (uint16_t)TF_KPDIV,
+  .hKiDivisor          = (uint16_t)TF_KIDIV,
+  .hKpDivisorPOW2      = (uint16_t)TF_KPDIV_LOG,
+  .hKiDivisorPOW2      = (uint16_t)TF_KIDIV_LOG,
+  .hDefKdGain           = 0x0000U,
+  .hKdDivisor           = 0x0000U,
+  .hKdDivisorPOW2       = 0x0000U,
+};
+
+/**
+  * @brief  PI / PID Iq loop parameters Motor 1
+  */
+PID_Handle_t PIDIqHandle_M1 =
+{
+  .hDefKpGain          = (int16_t)PID_TORQUE_KP_DEFAULT,
+  .hDefKiGain          = (int16_t)PID_TORQUE_KI_DEFAULT,
+  .wUpperIntegralLimit = (int32_t)INT16_MAX * TF_KIDIV,
+  .wLowerIntegralLimit = (int32_t)-INT16_MAX * TF_KIDIV,
+  .hUpperOutputLimit       = INT16_MAX,
+  .hLowerOutputLimit       = -INT16_MAX,
+  .hKpDivisor          = (uint16_t)TF_KPDIV,
+  .hKiDivisor          = (uint16_t)TF_KIDIV,
+  .hKpDivisorPOW2      = (uint16_t)TF_KPDIV_LOG,
+  .hKiDivisorPOW2      = (uint16_t)TF_KIDIV_LOG,
+  .hDefKdGain           = 0x0000U,
+  .hKdDivisor           = 0x0000U,
+  .hKdDivisorPOW2       = 0x0000U,
+};
+
+/**
+  * @brief  SpeednTorque Controller parameters Motor 1
+  */
+CircleLimitation_Handle_t CircleLimitationM1 =
+{
+  .MaxModule          = MAX_MODULE,
+  .MaxVd          	  = (uint16_t)(MAX_MODULE * 950 / 1000),
+};
+
+
+PID_Handle_t *pPIDIq[NBR_OF_MOTORS] = {&PIDIqHandle_M1};
+PID_Handle_t *pPIDId[NBR_OF_MOTORS] = {&PIDIdHandle_M1};
+
+/*
+ * FOC
+ */
+void FOC_Init(PWMC_Handle_t* pwmhandler)
+{
+	qd_t IqdRefDefault;
+
+	pCLM[M1] = &CircleLimitationM1;
+	pwmcHandle[M1] = pwmhandler;
+	PID_HandleInit(&PIDIqHandle_M1);
+	PID_HandleInit(&PIDIdHandle_M1);
+	FOC_Clear(M1);
+	IqdRefDefault.q = 0;
+	IqdRefDefault.d = 0;
+	FOCVars[M1].Iqdref = IqdRefDefault;
+	FOCVars[M1].UserIdref = 0;
+}
+
+
+void FOC_Clear(uint8_t bMotor)
+{
+	/* USER CODE BEGIN FOC_Clear 0 */
+
+	/* USER CODE END FOC_Clear 0 */
+	ab_t NULL_ab = {((int16_t)0), ((int16_t)0)};
+	qd_t NULL_qd = {((int16_t)0), ((int16_t)0)};
+	alphabeta_t NULL_alphabeta = {((int16_t)0), ((int16_t)0)};
+
+	FOCVars[bMotor].Iab = NULL_ab;
+	FOCVars[bMotor].Ialphabeta = NULL_alphabeta;
+	FOCVars[bMotor].Iqd = NULL_qd;
+	FOCVars[bMotor].Iqdref = NULL_qd;
+	FOCVars[bMotor].hTeref = (int16_t)0;
+	FOCVars[bMotor].Vqd = NULL_qd;
+	FOCVars[bMotor].Valphabeta = NULL_alphabeta;
+	FOCVars[bMotor].hElAngle = (int16_t)0;
+
+	PID_SetIntegralTerm(pPIDIq[bMotor], ((int32_t)0));
+	PID_SetIntegralTerm(pPIDId[bMotor], ((int32_t)0));
+
+	//STC_Clear(pSTC[bMotor]); //reset integral term of speed PID
+
+	PWMC_SwitchOffPWM(pwmcHandle[bMotor]);
+}
+
+void FOC_SetRefI(int32_t IqRef_mA, int32_t IdRef_mA)
+{
+	qd_t Iqdref;
+	Iqdref.d = (int16_t)(IdRef_mA * CURRENT_CONV_FACTOR);
+	Iqdref.q = (int16_t)(IqRef_mA * CURRENT_CONV_FACTOR);
+	FOCVars[M1].Iqdref = Iqdref;
+}
+
+void FOC_GetI(int32_t* pIq_mA, int32_t* pId_mA)
+{
+	if( pIq_mA )
+		*pIq_mA = (int32_t)(FOCVars[M1].Iqd.q*CURRENT_CONV_FACTOR_INV);
+	if( pId_mA )
+		*pId_mA = (int32_t)(FOCVars[M1].Iqd.d*CURRENT_CONV_FACTOR_INV);
+}
+
+/**
+ * @brief It executes the core of FOC drive that is the controllers for Iqd
+ *        currents regulation. Reference frame transformations are carried out
+ *        accordingly to the active speed sensor. It must be called periodically
+ *        when new motor currents have been converted
+ * @param this related object of class CFOC.
+ * @retval int16_t It returns MC_NO_FAULTS if the FOC has been ended before
+ *         next PWM Update event, MC_FOC_DURATION otherwise
+ */
+uint8_t FOC_Task(HALL_Handle_t *pHandle, int16_t hElAngle )
+{
+	qd_t Iqd, Vqd, Vdecoupled;//, idq_ave;
+	ab_t Iab;
+	alphabeta_t Ialphabeta, Valphabeta;
+	uint8_t bMotorNbr = 0;
+	uint16_t CodeReturn = MC_NO_ERROR;
+//	int32_t tq;
+//
+	int32_t *out_bufIq = &(pwmcHandle[M1]->LPFIqBuf);
+	int32_t *out_bufId = &(pwmcHandle[M1]->LPFIdBuf);
+
+	/* Acquisizione correnti */
+	PWMC_GetPhaseCurrents(pwmcHandle[M1], &Iab);
+	Ialphabeta = MCM_Clarke(Iab);
+	Iqd = MCM_Park(Ialphabeta, hElAngle);
+
+	/* Filtro */
+//	tq = 2; //pwmcHandle[M1]->LPFIqd_const;
+//	*out_bufIq = (*out_bufIq) + ((Iab.a - ((*out_bufIq) >> 15)) * tq);
+//	idq_ave.q = (*out_bufIq) >> 15;
+//	*out_bufId = (*out_bufId) + ((Iab.b - ((*out_bufId) >> 15)) * tq);
+//	idq_ave.d = (*out_bufId) >> 15;
+
+
+	/* PI */
+//	Vqd.q = PI_Controller(pPIDIq[M1], (int32_t)(FOCVars[M1].Iqdref.q) - Iqd.q);
+//	Vqd.d = PI_Controller(pPIDId[M1], (int32_t)(FOCVars[M1].Iqdref.d) - Iqd.d);
+
+
+	/* Stima del flusso concatenato dei magneti permanenti */
+	int32_t Wel_mecSpeedUnit = pHandle->_Super.hAvrMecSpeedUnit;
+	if(Wel_mecSpeedUnit < 0)
+	{
+		Wel_mecSpeedUnit *= -1;
+	}
+	int32_t Wel_rads = (SPEEDUNIT2RADS(Wel_mecSpeedUnit));
+//	int32_t Id_mA = CURRENT_CONV_FACTOR_INV*Iqd.d;
+//	int32_t Iq_mA = CURRENT_CONV_FACTOR_INV*Iqd.q;
+//	float FluxLinkagePM = (Vqd.q - RS*Iq_mA - LS*Id_mA*Wel_rads*5)/(Wel_rads*5*1000);
+
+	/*Decoupling*/
+//	Vdecoupled.q = Vqd.q;
+//	Vdecoupled.d = Vqd.d;
+//	Vdecoupled.q += (int16_t)((FluxLinkagePM*Wel_rads*5*1000) + Id_mA*LS*Wel_rads*5);
+//	Vdecoupled.d -= (int16_t)(Iq_mA*LS*Wel_rads*5);
+
+	Vqd.q = 0;
+	Vqd.d = 1500;
+	Vqd = Circle_Limitation(pCLM[M1], Vqd);
+	Valphabeta = MCM_Rev_Park(Vqd, hElAngle);
+//	Valphabeta.alpha = 1000;
+//	Valphabeta.beta = 0;
+
+	CodeReturn = PWMC_SetPhaseVoltage(pwmcHandle[M1], Valphabeta);
+
+	//Check of real voltage given by looking at uabc
+//	ab_t uab;
+//	alphabeta_t ualphabeta;
+//	qd_t uqd;
+
+//	uab.a = (pwmcHandle[M1]->CntPhA - 0.5) * 12;
+//	uab.b = (pwmcHandle[M1]->CntPhB - 0.5) * 12;
+//	ualphabeta = MCM_Clarke(uab);
+//	uqd = MCM_Park(ualphabeta, hElAngle);
+//	g_dbgfoc_ua = uqd.q;
+//	g_dbgfoc_ub = uqd.d;
+
+	FOCVars[M1].Vqd = Vqd;
+	FOCVars[M1].Iab = Iab;
+	FOCVars[M1].Ialphabeta = Ialphabeta;
+	FOCVars[M1].Iqd = Iqd;
+	FOCVars[M1].Valphabeta = Valphabeta;
+	FOCVars[M1].hElAngle = hElAngle;
+
+	/* Stima del flusso concatenato dei magneti permanenti */
+//	FOCVars[M1].Vdecoupled = Vdecoupled;
+	FOCVars[M1].hElvelocity = Wel_rads;
+//	FOCVars[M1].hFlux = FluxLinkagePM;
+
+
+	g_dbgfoc_Iqref = FOCVars[M1].Iqdref.q;
+	g_dbgfoc_Iq = Iqd.q;
+	g_dbgfoc_Vq = Vqd.q;
+	g_dbgfoc_Valpha = Valphabeta.alpha;
+	g_dbgfoc_Vbeta = Valphabeta.beta;
+//	g_dbgfoc_Iqfilt = idq_ave.q;
+//	g_dbgfoc_Idfilt = idq_ave.d;
+
+	CodeReturn |= PWMC_CheckOverCurrent(pwmcHandle[M1]);                    /* check for fault. It return MC_BREAK_IN or MC_NO_FAULTS
+		                                                                                 (for STM32F30x can return MC_OVER_VOLT in case of HW Overvoltage) */
+	// control if FOC loop employs too much time
+	if (CodeReturn != (uint32_t)MC_NO_FAULTS)
+	{
+	    PWMC_SwitchOffPWM(pwmcHandle[M1]);
+	    FOC_Clear(M1);
+	}
+
+	return (bMotorNbr);
+}

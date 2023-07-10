@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="LastUsedSourceTemplate" value="Default C source template"/>
+	<item key="LastUsedHeaderTemplate" value="Default C header template"/>
+	<item key="org.eclipse.cdt.utils.ui.controls.FileListControl" value="${workspace_loc:/bspf4/bsp/driver/bldc}"/>
+	<section name="completion_proposal_size">
+	</section>
+	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration">
+	</section>
+	<section name="CResourceRenameRefactoringInputPage">
+		<item key="updateReferences" value="true"/>
+	</section>
+	<section name="OptionalMessageDialog.hide.">
+		<item key="askReindex.detail" value="0"/>
+	</section>
+	<section name="PDOMSearchPage">
+		<item key="caseSensitive" value="false"/>
+		<item key="searchFlags" value="227191"/>
+		<list key="previousPatterns">
+			<item value="LowPass"/>
+			<item value="Induction"/>
+			<item value="freq"/>
+			<item value="cutting"/>
+			<item value="DirectCommand"/>
+			<item value="SPEED_LOOP_FREQUENCY_HZ"/>
+			<item value="lastCommand"/>
+			<item value="INTERNAL"/>
+			<item value="SysTick_Handler"/>
+			<item value="HALI_SET_IRQ_PRIORITY"/>
+			<item value="apb1"/>
+			<item value="afoc"/>
+			<item value="foc_task"/>
+			<item value="api"/>
+			<item value="driver_bldc"/>
+			<item value="TorqueRefDefault"/>
+			<item value="TIM1_UP_TIM10_IRQHandler"/>
+			<item value="TIM1_UP_TIM10_IRQn"/>
+			<item value="ADC_IRQn"/>
+			<item value="PID_Handle_tPIDSpeedHandle_M1"/>
+			<item value="CircleLimitation_Handle_t"/>
+			<item value="cirle_limitation"/>
+		</list>
+	</section>
+	<section name="org.eclipse.cdt.ui.OPEN_ACTION_SELECTION_DIALOG_SECTION">
+		<item key="DIALOG_X_ORIGIN" value="137"/>
+		<item key="DIALOG_Y_ORIGIN" value="80"/>
+		<item key="DIALOG_WIDTH" value="810"/>
+		<item key="DIALOG_HEIGHT" value="438"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration.internal">
+		<item key="size.width" value="714"/>
+		<item key="size.height" value="180"/>
+	</section>
+	<section name="NewClassWizardPage">
+	</section>
+	<section name="org.eclipse.cdt.internal.ui.browser.opentype.OpenTypeActionSettings">
+		<item key="show_namespaces" value="true"/>
+		<item key="show_classes" value="true"/>
+		<item key="show_structs" value="true"/>
+		<item key="show_typedefs" value="true"/>
+		<item key="show_enums" value="true"/>
+		<item key="show_unions" value="true"/>
+		<item key="show_functions" value="true"/>
+		<item key="show_variables" value="true"/>
+		<item key="show_enumerators" value="true"/>
+		<item key="show_macros" value="true"/>
+		<item key="show_lowlevel" value="true"/>
+		<item key="x" value="-930"/>
+		<item key="y" value="-48"/>
+		<item key="width" value="565"/>
+		<item key="height" value="681"/>
+	</section>
+</section>

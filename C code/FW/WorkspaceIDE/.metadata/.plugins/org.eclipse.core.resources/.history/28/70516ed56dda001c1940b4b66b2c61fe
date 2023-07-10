@@ -1,0 +1,27 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+# Toolchain: GNU Tools for STM32 (10.3-2021.10)
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+S_SRCS += \
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/startup/gcc/startup_stm32f401xe.s 
+
+OBJS += \
+./bsp/platform/STM32F4/startup/gcc/startup_stm32f401xe.o 
+
+S_DEPS += \
+./bsp/platform/STM32F4/startup/gcc/startup_stm32f401xe.d 
+
+
+# Each subdirectory must supply rules for building sources it contributes
+bsp/platform/STM32F4/startup/gcc/startup_stm32f401xe.o: C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/startup/gcc/startup_stm32f401xe.s bsp/platform/STM32F4/startup/gcc/subdir.mk
+	arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@" "$<"
+
+clean: clean-bsp-2f-platform-2f-STM32F4-2f-startup-2f-gcc
+
+clean-bsp-2f-platform-2f-STM32F4-2f-startup-2f-gcc:
+	-$(RM) ./bsp/platform/STM32F4/startup/gcc/startup_stm32f401xe.d ./bsp/platform/STM32F4/startup/gcc/startup_stm32f401xe.o
+
+.PHONY: clean-bsp-2f-platform-2f-STM32F4-2f-startup-2f-gcc
+

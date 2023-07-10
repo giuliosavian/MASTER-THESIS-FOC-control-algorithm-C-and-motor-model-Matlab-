@@ -1,0 +1,18 @@
+bsp/debug/systemview/SEGGER_SYSVIEW.o: \
+ C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_SYSVIEW.c \
+ C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_SYSVIEW_Int.h \
+ C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_SYSVIEW.h \
+ C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER.h \
+ C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/Global.h \
+ C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_SYSVIEW_ConfDefaults.h \
+ C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_SYSVIEW_Conf.h \
+ C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_RTT_Conf.h \
+ C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_RTT.h
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_SYSVIEW_Int.h:
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_SYSVIEW.h:
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER.h:
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/Global.h:
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_SYSVIEW_ConfDefaults.h:
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_SYSVIEW_Conf.h:
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_RTT_Conf.h:
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_RTT.h:

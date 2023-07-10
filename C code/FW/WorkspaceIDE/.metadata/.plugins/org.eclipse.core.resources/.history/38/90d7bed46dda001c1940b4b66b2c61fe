@@ -1,0 +1,3 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/trace/debug_uart.c:26:5:debug_uart_write	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/trace/debug_uart.c:34:6:debug_uart_init	40	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/trace/debug_uart.c:46:6:debug_uart_deinit	8	static

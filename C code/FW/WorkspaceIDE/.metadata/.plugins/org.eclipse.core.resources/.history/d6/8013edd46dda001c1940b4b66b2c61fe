@@ -1,0 +1,16 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_tim.c:20:6:tim_initbase	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_tim.c:51:6:tim_init	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_tim.c:66:16:tim_get_handler	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_tim.c:76:6:tim_is_open	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_tim.c:87:10:tim_get_counter_value	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_tim.c:96:6:tim_init_settings	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_tim.c:108:6:tim_init_channel_settings	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_tim.c:121:6:tim_deinit	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_tim.c:141:6:tim_set_callback	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_tim.c:150:7:tim_open	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_tim.c:206:7:tim_close	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_tim.c:245:6:tim_set_channel_callback	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_tim.c:255:7:tim_channel_open	48	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_tim.c:368:7:tim_channel_close	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_tim.c:383:7:tim_channel_write	40	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_tim.c:438:13:tim_hal_callback	56	static

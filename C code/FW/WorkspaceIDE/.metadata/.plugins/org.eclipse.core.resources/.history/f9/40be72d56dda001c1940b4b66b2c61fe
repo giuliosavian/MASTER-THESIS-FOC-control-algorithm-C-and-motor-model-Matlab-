@@ -1,0 +1,6 @@
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\cmsis\include\core_cm4.h:1698:22:NVIC_SetPriority	16	static
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\cmsis\include\core_cm4.h:1830:26:SysTick_Config	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/hlli/hll.c:12:6:HALI_INIT_TICK	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/hlli/hll.c:29:6:HALI_TICK_INC	4	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/hlli/hll.c:42:10:HALI_TICK_GET	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/hlli/hll.c:60:6:HALI_TICK_ClockTickDelay	24	static,ignoring_inline_asm

@@ -1,0 +1,4 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/modules/module_adc.c:13:27:tickAdcSample_work	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/modules/module_adc.c:29:6:ANALOG_Init	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/modules/module_adc.c:54:6:ANALOG_Deinit	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/modules/module_adc.c:61:9:ANALOG_Get	24	static

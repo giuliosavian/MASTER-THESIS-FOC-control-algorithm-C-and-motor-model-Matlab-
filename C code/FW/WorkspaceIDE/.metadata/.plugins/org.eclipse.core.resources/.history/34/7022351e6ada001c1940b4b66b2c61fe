@@ -1,0 +1,6 @@
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/MCSDK_v5.Y.4-Full/MotorControl/MCSDK/MCLib/Any/Src/hall_speed_pos_fdbk.c:86:13:HALL_Init	16	static
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/MCSDK_v5.Y.4-Full/MotorControl/MCSDK/MCLib/Any/Src/hall_speed_pos_fdbk.c:197:13:HALL_Clear	8	static
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/MCSDK_v5.Y.4-Full/MotorControl/MCSDK/MCLib/Any/Src/hall_speed_pos_fdbk.c:264:16:HALL_CalcElAngle	0	static
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/MCSDK_v5.Y.4-Full/MotorControl/MCSDK/MCLib/Any/Src/hall_speed_pos_fdbk.c:313:13:HALL_CalcAvrgMecSpeedUnit	16	static
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/MCSDK_v5.Y.4-Full/MotorControl/MCSDK/MCLib/Any/Src/hall_speed_pos_fdbk.c:403:14:HALL_TIMx_CC_IRQHandler	16	static
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/MCSDK_v5.Y.4-Full/MotorControl/MCSDK/MCLib/Any/Src/hall_speed_pos_fdbk.c:732:14:HALL_TIMx_UP_IRQHandler	8	static

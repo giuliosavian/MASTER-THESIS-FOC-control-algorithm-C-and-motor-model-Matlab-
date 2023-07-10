@@ -1,0 +1,9 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_rtc.c:12:7:rtc_read	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_rtc.c:45:7:rtc_write	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_rtc.c:58:6:rtc_init	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_rtc.c:75:6:rtc_deinit	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_rtc.c:80:6:rtc_is_clock_valid	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_rtc.c:87:6:rtc_set_clock_invalid	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_rtc.c:92:11:rtc_getdev	4	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_rtc.c:97:6:rtc_set_auto_dst	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_rtc.c:103:6:rtc_set_calibration	16	static

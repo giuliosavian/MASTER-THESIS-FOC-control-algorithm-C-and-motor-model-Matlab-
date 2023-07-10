@@ -1,0 +1,3 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/trace/debug_trace.c:12:6:debug_enable_trace	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/trace/debug_trace.c:28:6:debug_disable_trace	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/trace/debug_trace.c:39:5:debug_trace	28	static

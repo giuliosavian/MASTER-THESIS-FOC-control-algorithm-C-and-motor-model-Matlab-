@@ -1,0 +1,16 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/circular_buffer.c:25:13:cbuf16_init	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/circular_buffer.c:31:13:cbuf32_init	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/circular_buffer.c:38:13:cbuf16_clear	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/circular_buffer.c:42:13:cbuf32_clear	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/circular_buffer.c:47:13:cbuf16_full	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/circular_buffer.c:51:13:cbuf32_full	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/circular_buffer.c:56:13:cbuf16_empty	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/circular_buffer.c:60:13:cbuf32_empty	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/circular_buffer.c:65:17:cbuf16_count	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/circular_buffer.c:69:17:cbuf32_count	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/circular_buffer.c:74:13:cbuf16_write	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/circular_buffer.c:83:13:cbuf32_write	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/circular_buffer.c:93:14:cbuf16_read	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/circular_buffer.c:102:14:cbuf32_read	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/circular_buffer.c:112:16:cbuf16_get	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/circular_buffer.c:120:16:cbuf32_get	24	static

@@ -1,0 +1,170 @@
+/*
+ * foc_controller.c
+ *
+ *  Created on: 2 mag 2022
+ *      Author: fpasquetto
+ */
+#include "bldc_def.h"
+#include "mc_type.h"
+#include "foc_controller.h"
+#include "pmsm_motor_parameters.h"
+#include "parameters_conversion.h"
+
+static FOCVars_t FOCVars[NBR_OF_MOTORS];
+static PWMC_Handle_t *pwmcHandle[NBR_OF_MOTORS];
+static CircleLimitation_Handle_t *pCLM[NBR_OF_MOTORS];
+
+/**
+  * @brief  PI / PID Id loop parameters Motor 1
+  */
+PID_Handle_t PIDIdHandle_M1 =
+{
+  .hDefKpGain          = (int16_t)PID_FLUX_KP_DEFAULT,
+  .hDefKiGain          = (int16_t)PID_FLUX_KI_DEFAULT,
+  .wUpperIntegralLimit = (int32_t)INT16_MAX * TF_KIDIV,
+  .wLowerIntegralLimit = (int32_t)-INT16_MAX * TF_KIDIV,
+  .hUpperOutputLimit       = INT16_MAX,
+  .hLowerOutputLimit       = -INT16_MAX,
+  .hKpDivisor          = (uint16_t)TF_KPDIV,
+  .hKiDivisor          = (uint16_t)TF_KIDIV,
+  .hKpDivisorPOW2      = (uint16_t)TF_KPDIV_LOG,
+  .hKiDivisorPOW2      = (uint16_t)TF_KIDIV_LOG,
+  .hDefKdGain           = 0x0000U,
+  .hKdDivisor           = 0x0000U,
+  .hKdDivisorPOW2       = 0x0000U,
+};
+
+/**
+  * @brief  PI / PID Iq loop parameters Motor 1
+  */
+PID_Handle_t PIDIqHandle_M1 =
+{
+  .hDefKpGain          = (int16_t)PID_TORQUE_KP_DEFAULT,
+  .hDefKiGain          = (int16_t)PID_TORQUE_KI_DEFAULT,
+  .wUpperIntegralLimit = (int32_t)INT16_MAX * TF_KIDIV,
+  .wLowerIntegralLimit = (int32_t)-INT16_MAX * TF_KIDIV,
+  .hUpperOutputLimit       = INT16_MAX,
+  .hLowerOutputLimit       = -INT16_MAX,
+  .hKpDivisor          = (uint16_t)TF_KPDIV,
+  .hKiDivisor          = (uint16_t)TF_KIDIV,
+  .hKpDivisorPOW2      = (uint16_t)TF_KPDIV_LOG,
+  .hKiDivisorPOW2      = (uint16_t)TF_KIDIV_LOG,
+  .hDefKdGain           = 0x0000U,
+  .hKdDivisor           = 0x0000U,
+  .hKdDivisorPOW2       = 0x0000U,
+};
+
+/**
+  * @brief  SpeednTorque Controller parameters Motor 1
+  */
+CircleLimitation_Handle_t CircleLimitationM1 =
+{
+  .MaxModule          = MAX_MODULE,
+  .MaxVd          	  = (uint16_t)(MAX_MODULE * 950 / 1000),
+};
+
+
+PID_Handle_t *pPIDIq[NBR_OF_MOTORS] = {&PIDIqHandle_M1};
+PID_Handle_t *pPIDId[NBR_OF_MOTORS] = {&PIDIdHandle_M1};
+
+/*
+ * FOC
+ */
+void FOC_Init(PWMC_Handle_t* pwmhandler)
+{
+	qd_t IqdRefDefault;
+
+	pCLM[M1] = &CircleLimitationM1;
+	pwmcHandle[M1] = pwmhandler;
+	PID_HandleInit(&PIDIqHandle_M1);
+	PID_HandleInit(&PIDIdHandle_M1);
+	FOC_Clear(M1);
+	IqdRefDefault.q = 0;
+	IqdRefDefault.d = 0;
+	FOCVars[M1].Iqdref = IqdRefDefault;
+	FOCVars[M1].UserIdref = 0;
+}
+
+
+void FOC_Clear(uint8_t bMotor)
+{
+	/* USER CODE BEGIN FOC_Clear 0 */
+
+	/* USER CODE END FOC_Clear 0 */
+	ab_t NULL_ab = {((int16_t)0), ((int16_t)0)};
+	qd_t NULL_qd = {((int16_t)0), ((int16_t)0)};
+	alphabeta_t NULL_alphabeta = {((int16_t)0), ((int16_t)0)};
+
+	FOCVars[bMotor].Iab = NULL_ab;
+	FOCVars[bMotor].Ialphabeta = NULL_alphabeta;
+	FOCVars[bMotor].Iqd = NULL_qd;
+	FOCVars[bMotor].Iqdref = NULL_qd;
+	FOCVars[bMotor].hTeref = (int16_t)0;
+	FOCVars[bMotor].Vqd = NULL_qd;
+	FOCVars[bMotor].Valphabeta = NULL_alphabeta;
+	FOCVars[bMotor].hElAngle = (int16_t)0;
+
+	PID_SetIntegralTerm(pPIDIq[bMotor], ((int32_t)0));
+	PID_SetIntegralTerm(pPIDId[bMotor], ((int32_t)0));
+
+	//STC_Clear(pSTC[bMotor]); //reset integral term of speed PID
+
+	PWMC_SwitchOffPWM(pwmcHandle[bMotor]);
+}
+
+void FOC_SetRefIq(float IqRef) //in Ampere
+{
+	qd_t Iqdref;
+	Iqdref.d = (int16_t) (0 * CURRENT_CONV_FACTOR);
+	Iqdref.q = (int16_t) (IqRef * CURRENT_CONV_FACTOR);
+	FOCVars[M1].Iqdref = Iqdref;
+}
+
+float FOC_GetIq(void)
+{
+	return ((float)FOCVars[M1].Iqd.q*CURRENT_CONV_FACTOR_INV);
+}
+
+
+/**
+ * @brief It executes the core of FOC drive that is the controllers for Iqd
+ *        currents regulation. Reference frame transformations are carried out
+ *        accordingly to the active speed sensor. It must be called periodically
+ *        when new motor currents have been converted
+ * @param this related object of class CFOC.
+ * @retval int16_t It returns MC_NO_FAULTS if the FOC has been ended before
+ *         next PWM Update event, MC_FOC_DURATION otherwise
+ */
+uint8_t FOC_Task(int16_t hElAngle)
+{
+	qd_t Iqd, Vqd;
+	ab_t Iab;
+	alphabeta_t Ialphabeta, Valphabeta;
+	uint16_t hFOCreturn = 0;
+	uint8_t bMotorNbr = 0;
+
+	PWMC_GetPhaseCurrents(pwmcHandle[M1], &Iab);
+	Ialphabeta = MCM_Clarke(Iab);
+	Iqd = MCM_Park(Ialphabeta, hElAngle);
+	Vqd.q = PI_Controller(pPIDIq[M1], (int32_t)(FOCVars[M1].Iqdref.q) - Iqd.q);
+	Vqd.d = PI_Controller(pPIDId[M1], (int32_t)(FOCVars[M1].Iqdref.d) - Iqd.d);
+
+	Vqd = Circle_Limitation(pCLM[M1], Vqd);
+	Valphabeta = MCM_Rev_Park(Vqd, hElAngle);
+	hFOCreturn = PWMC_SetPhaseVoltage(pwmcHandle[M1], Valphabeta);
+
+	FOCVars[M1].Vqd = Vqd;
+	FOCVars[M1].Iab = Iab;
+	FOCVars[M1].Ialphabeta = Ialphabeta;
+	FOCVars[M1].Iqd = Iqd;
+	FOCVars[M1].Valphabeta = Valphabeta;
+	FOCVars[M1].hElAngle = hElAngle;
+
+	// control if FOC loop employs too much time
+	if(hFOCreturn == MC_FOC_DURATION)
+	{
+		//MCI_FaultProcessing(&Mci[M1], MC_FOC_DURATION, 0);
+		PWMC_SwitchOffPWM(pwmcHandle[M1]);
+	}
+	return (bMotorNbr);
+}

@@ -1,0 +1,4 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_wdog.c:39:6:HALI_WDOG_Init	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_wdog.c:78:6:HALI_WDOG_Refresh	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_wdog.c:91:6:HALI_WDOG_Reset	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_wdog.c:103:10:HALI_WDOG_Window_ms	16	static

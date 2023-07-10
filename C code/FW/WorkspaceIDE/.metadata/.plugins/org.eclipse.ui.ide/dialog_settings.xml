@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="ExternalProjectImportWizard">
+		<item key="WizardProjectsImportPage.STORE_NESTED_PROJECTS" value="true"/>
+	</section>
+	<section name="SmartImportWizard">
+		<item key="SmartImportRootWizardPage.STORE_HIDE_ALREADY_OPEN" value="false"/>
+		<item key="SmartImportRootWizardPage.STORE_CLOSE_IMPORTED" value="false"/>
+		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
+		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
+		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="F:\UNIPD\MAGISTRALE\Projects\University projects\Master Thesis - FOC control algorithm (C) and motor model (Matlab)\C code\FW"/>
+			<item value="C:\Users\gsavian\Desktop\c projects\bldc motor\foc control\F4012RE\nouart\STM32CubeIDE"/>
+			<item value="C:\Users\gsavian\STM32CubeIDE\workspace_1.9.0\DCworkbench_Hall_nouart"/>
+			<item value="C:\Users\gsavian\Desktop\F4012RE_FOC_nouart"/>
+			<item value="C:\Users\gsavian\Desktop\bldcmotor-main\FW\WorkspaceIDE\bldc"/>
+			<item value="C:\Users\gsavian\Desktop\bldcmotor-main 1\FW\WorkspaceIDE"/>
+			<item value="C:\Users\gsavian\Desktop\F4012RE_FOC_uart\STM32CubeIDE"/>
+			<item value="C:\Users\gsavian\Desktop\bldcmotor-main\FW\WorkspaceIDE"/>
+		</list>
+	</section>
+	<section name="NewWizardAction">
+	</section>
+	<section name="ChooseWorkspaceDialogSettings">
+		<item key="DIALOG_X_ORIGIN" value="375"/>
+		<item key="DIALOG_Y_ORIGIN" value="185"/>
+	</section>
+	<section name="WORKBENCH_SETTINGS">
+		<list key="ENABLED_TRANSFERS">
+		</list>
+	</section>
+	<section name="SaveAsDialogSettings">
+		<item key="DIALOG_X_ORIGIN" value="429"/>
+		<item key="DIALOG_Y_ORIGIN" value="8"/>
+		<item key="DIALOG_WIDTH" value="525"/>
+		<item key="DIALOG_HEIGHT" value="580"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+</section>

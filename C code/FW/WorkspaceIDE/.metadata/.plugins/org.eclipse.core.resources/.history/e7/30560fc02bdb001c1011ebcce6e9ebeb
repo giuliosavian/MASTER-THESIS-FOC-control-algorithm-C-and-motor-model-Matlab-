@@ -1,0 +1,51 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+# Toolchain: GNU Tools for STM32 (10.3-2021.10)
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_RTT.c \
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_RTT_printf.c \
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_SYSVIEW.c \
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_SYSVIEW_Config.c 
+
+S_UPPER_SRCS += \
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_RTT_ASM_ARMv7M.S 
+
+OBJS += \
+./bsp/debug/systemview/SEGGER_RTT.o \
+./bsp/debug/systemview/SEGGER_RTT_ASM_ARMv7M.o \
+./bsp/debug/systemview/SEGGER_RTT_printf.o \
+./bsp/debug/systemview/SEGGER_SYSVIEW.o \
+./bsp/debug/systemview/SEGGER_SYSVIEW_Config.o 
+
+S_UPPER_DEPS += \
+./bsp/debug/systemview/SEGGER_RTT_ASM_ARMv7M.d 
+
+C_DEPS += \
+./bsp/debug/systemview/SEGGER_RTT.d \
+./bsp/debug/systemview/SEGGER_RTT_printf.d \
+./bsp/debug/systemview/SEGGER_SYSVIEW.d \
+./bsp/debug/systemview/SEGGER_SYSVIEW_Config.d 
+
+
+# Each subdirectory must supply rules for building sources it contributes
+bsp/debug/systemview/SEGGER_RTT.o: C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_RTT.c bsp/debug/systemview/subdir.mk
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DBOARDNAME=NUCLEOF4 -DDEBUG -c -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/debug/systemview" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/stm32f4" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/driver/bldc/MCLib/F4xx/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/driver/bldc/MCLib/Any/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/config" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/cmsis/Include" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/headers" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/hll/STM32F4xx_HAL/inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+bsp/debug/systemview/SEGGER_RTT_ASM_ARMv7M.o: C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_RTT_ASM_ARMv7M.S bsp/debug/systemview/subdir.mk
+	arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@" "$<"
+bsp/debug/systemview/SEGGER_RTT_printf.o: C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_RTT_printf.c bsp/debug/systemview/subdir.mk
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DBOARDNAME=NUCLEOF4 -DDEBUG -c -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/debug/systemview" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/stm32f4" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/driver/bldc/MCLib/F4xx/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/driver/bldc/MCLib/Any/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/config" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/cmsis/Include" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/headers" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/hll/STM32F4xx_HAL/inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+bsp/debug/systemview/SEGGER_SYSVIEW.o: C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_SYSVIEW.c bsp/debug/systemview/subdir.mk
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DBOARDNAME=NUCLEOF4 -DDEBUG -c -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/debug/systemview" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/stm32f4" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/driver/bldc/MCLib/F4xx/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/driver/bldc/MCLib/Any/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/config" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/cmsis/Include" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/headers" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/hll/STM32F4xx_HAL/inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+bsp/debug/systemview/SEGGER_SYSVIEW_Config.o: C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_SYSVIEW_Config.c bsp/debug/systemview/subdir.mk
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DBOARDNAME=NUCLEOF4 -DDEBUG -c -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/debug/systemview" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/stm32f4" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/driver/bldc/MCLib/F4xx/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/driver/bldc/MCLib/Any/Inc" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/config" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/cmsis/Include" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/headers" -I"C:/Users/gsavian/Desktop/bldcmotor/FW/WorkspaceIDE/../bsp/platform/STM32F4/hll/STM32F4xx_HAL/inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+
+clean: clean-bsp-2f-debug-2f-systemview
+
+clean-bsp-2f-debug-2f-systemview:
+	-$(RM) ./bsp/debug/systemview/SEGGER_RTT.d ./bsp/debug/systemview/SEGGER_RTT.o ./bsp/debug/systemview/SEGGER_RTT.su ./bsp/debug/systemview/SEGGER_RTT_ASM_ARMv7M.d ./bsp/debug/systemview/SEGGER_RTT_ASM_ARMv7M.o ./bsp/debug/systemview/SEGGER_RTT_printf.d ./bsp/debug/systemview/SEGGER_RTT_printf.o ./bsp/debug/systemview/SEGGER_RTT_printf.su ./bsp/debug/systemview/SEGGER_SYSVIEW.d ./bsp/debug/systemview/SEGGER_SYSVIEW.o ./bsp/debug/systemview/SEGGER_SYSVIEW.su ./bsp/debug/systemview/SEGGER_SYSVIEW_Config.d ./bsp/debug/systemview/SEGGER_SYSVIEW_Config.o ./bsp/debug/systemview/SEGGER_SYSVIEW_Config.su
+
+.PHONY: clean-bsp-2f-debug-2f-systemview
+

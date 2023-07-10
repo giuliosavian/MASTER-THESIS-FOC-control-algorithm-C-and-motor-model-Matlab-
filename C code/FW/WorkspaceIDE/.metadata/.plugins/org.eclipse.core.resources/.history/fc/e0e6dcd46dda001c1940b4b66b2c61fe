@@ -1,0 +1,13 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_common.c:15:6:driver_init	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_common.c:30:6:driver_tick	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_common.c:42:6:driver_systick_set_callback	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_common.c:56:6:driver_systick_clr_callback	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_common.c:68:10:driver_systick_get	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_common.c:73:10:driver_systick_elapsed	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_common.c:82:6:driver_systick_delay	24	static,ignoring_inline_asm
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_common.c:92:6:driver_clock_delay	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_common.c:97:10:driver_get_coreclock	4	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_common.c:102:6:driver_get_device_identifier	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_common.c:107:6:interrupt_enable_global	4	static,ignoring_inline_asm
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_common.c:127:6:interrupt_disable_global	4	static,ignoring_inline_asm
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_common.c:136:5:interrupt_disabled	4	static

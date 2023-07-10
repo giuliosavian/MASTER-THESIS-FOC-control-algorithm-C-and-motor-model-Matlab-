@@ -1,0 +1,17 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_i2c.c:29:6:i2c_init	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_i2c.c:65:6:i2c_deinit	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_i2c.c:89:16:i2c_get_handler	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_i2c.c:99:6:i2c_init_settings	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_i2c.c:110:7:i2c_open	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_i2c.c:149:7:i2c_close	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_i2c.c:181:13:clearEndEvent	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_i2c.c:189:13:waitEndEvent	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_i2c.c:211:6:i2c_device_ready	40	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_i2c.c:254:7:i2c_master_tx	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_i2c.c:286:7:i2c_master_rx	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_i2c.c:318:7:i2c_memory_write	40	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_i2c.c:368:7:i2c_memory_read	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_i2c.c:420:14:i2c_wait_transfer_completed	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_i2c.c:455:14:i2c_memory_write_ex	40	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_i2c.c:495:14:i2c_memory_read_ex	40	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_i2c.c:533:13:i2c_isr_callback	32	static

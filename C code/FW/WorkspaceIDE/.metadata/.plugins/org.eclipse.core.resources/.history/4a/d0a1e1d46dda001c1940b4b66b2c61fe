@@ -1,0 +1,16 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_gpio.c:27:12:get_index_of	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_gpio.c:36:12:add_entry	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_gpio.c:61:13:remove_entry	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_gpio.c:74:13:gpio_event_manager	40	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_gpio.c:93:6:gpio_init	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_gpio.c:101:6:gpio_deinit	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_gpio.c:109:6:gpio_config	56	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_gpio.c:151:6:gpio_config_pins	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_gpio.c:160:6:gpio_config_pin_from	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_gpio.c:173:6:gpio_enable_interrupt	40	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_gpio.c:192:6:gpio_disable_interrupt	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_gpio.c:205:6:gpio_write_pin_output	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_gpio.c:214:6:gpio_set_pin_output	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_gpio.c:223:6:gpio_clear_pin_output	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_gpio.c:232:6:gpio_toggle_pin_output	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_gpio.c:241:5:gpio_read_pin_input	24	static

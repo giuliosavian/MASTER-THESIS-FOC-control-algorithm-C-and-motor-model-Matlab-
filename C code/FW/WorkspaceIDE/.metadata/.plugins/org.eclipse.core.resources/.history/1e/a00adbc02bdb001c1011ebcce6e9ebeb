@@ -1,0 +1,7 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/utilities.c:12:10:REV16	24	static,ignoring_inline_asm
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/utilities.c:17:10:REV32	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/utilities.c:60:10:CRC_04C11DB7	56	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/utilities.c:93:9:CRC8_r	40	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/utilities.c:120:9:CRC8	40	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/utilities.c:141:10:CRC16_r	40	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/utilities.c:177:10:CRC16	40	static

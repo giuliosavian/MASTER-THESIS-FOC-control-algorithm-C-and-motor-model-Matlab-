@@ -1,0 +1,1423 @@
+/*
+ * motor.c
+ *
+ *  Created on: 11 mag 2018
+ *      Author: fpasquetto
+ */
+#include <string.h>
+#include "sdk_inc.h"
+#include "driver/inc/driver_bldc.h"
+#include "options.h"
+#include "motor.h"
+#include "motor_def.h"
+#include "motor_hallsens.h"
+#include "encoder.h"
+#include "motor_waves.h"
+
+
+
+
+
+/**
+ * Bridge current measure
+ *
+ * 0V Offset = 1,7V
+ * OP Amp Gain = x7
+ *
+ * Ix (A)	| mV Shunt 5mOhm | Out Amp (mV)
+ * ---------|----------------|----------------
+ *   0		|	0			 |  1700
+ * 	 1		|	5			 |  1750
+ * 	 5		|  25			 |  1900
+ * 	 10		|  50			 |  2090
+ * 	 15		|  75			 |  2280
+ * 	 20		| 100			 |  2470
+ * -------------------------------------------
+ *
+ * To convert adc value (v) to mA:
+ * R = 0.005 Ohm, Amplificatore G = 7
+ *
+ * Voamp_out = v * 3300 / 4096
+ * Vshunt = Voamp_out / G
+ * Ipath = Vshunt / R = Vshunt * 200
+ *
+ * Ipath (mA) = ((v * 3300 / 4096) / G) * 200 = (v * 3300 * 200 / 4096 / G) =  v * 23
+ * IP_CURR_SCALE = 23
+ *
+ *
+ *
+ *Angle offset correction
+ * -------------------------------------------
+ * 		2400rpm		400rpm		delta	150rpm
+ * Motor1-------------------------------------
+ * CW 	1004		954			37		939
+ * CCW	0			978			45		964
+ * Motor2-------------------------------------
+ * CW 	994			949			45
+ * CCW	1020		984			36
+ * -------------------------------------------
+ * Motor3-------------------------------------
+ * CW 	1020		---			45		959
+ * CCW	1004		---			36		954
+ * -------------------------------------------
+ * ...
+ * Motor--------------------------------------
+ * CW 	995			954			44
+ * CCW	0			980			44
+ * -------------------------------------------
+ *
+ * Speed adpater:
+ *
+ *
+ */
+
+/* Motor defines */
+#define IP_CURR_SCALE  						25
+#define ILINE_CURR_SCALE  					15		/* Iline scale factor = x/10 */
+#define MOT_OFFSET_MANAGMENT_VER			2
+#define MOT_HALLSENS_MANAGMENT_VER			2
+#if OPTION_ENGINE_TYPE_GPT
+	#define MOT_CURR_LIMIT_mA  					25000
+	#define ILINE_CURR_LIMIT_mA  				0
+	#define MOT_ILIM_ACTIVE_TOUT   				50    	/* 25 * 0.048ms = 1.2ms */
+#else
+	#define MOT_CURR_LIMIT_mA  					20000
+	#define ILINE_CURR_LIMIT_mA  				15000
+	#define MOT_ILIM_ACTIVE_TOUT   				50    	/* 25 * 0.048ms = 1.2ms */
+#endif
+
+#if MOT_OFFSET_MANAGMENT_VER == 1
+#define MOT_PHASE_OFFSET_START_CW			975
+#define MOT_PHASE_OFFSET_START_CCW			975
+#define MOT_PHASE_OFFSET_CW					CONFIG_GetConfigProd()->motor_phase_cw
+#define MOT_PHASE_OFFSET_CCW				CONFIG_GetConfigProd()->motor_phase_ccw
+#define MOT_PHASE_OFFSET_COEFFCW			((1024 + g_mot.drv_offset2_cw - g_mot.drv_offset1_cw)%1024)
+#define MOT_PHASE_OFFSET_COEFFCCW			((1024 + g_mot.drv_offset2_ccw - g_mot.drv_offset1_ccw)%1024)
+#endif
+
+#if MOT_OFFSET_MANAGMENT_VER == 2
+#define MOT_PHASE_OFFSET_CW_2400RPM_5A		0
+#define MOT_PHASE_OFFSET_CCW_2400RPM_5A		0
+#define MOT_PHASE_OFFSET_TORQUE_SPAN		65
+#define MOT_PHASE_OFFSET_SPEED_SPAN_CW		69
+#define MOT_PHASE_OFFSET_SPEED_SPAN_CCW		49
+#define MOT_PHASE_OFFSET_HALLA				0
+#define MOT_PHASE_OFFSET_HALLB				0
+#define MOT_PHASE_OFFSET_HALLC				0
+#endif
+
+/* PWM Power limits */
+#define MOT_PWM_MAX     					240
+#if OPTION_ENGINE_TYPE_GPT
+#define MOT_PWM_MIN     					1
+#else
+#define MOT_PWM_MIN     					5
+#endif
+
+/* Driver features */
+#if OPTION_ENGINE_TYPE_GPT
+#define MOT_STOP_BACKSTEPS					0
+#else
+#define MOT_STOP_BACKSTEPS					2
+#endif
+#define MOT_START_IMPULSE_TIME_MS			500
+#define MOT_START_IMPULSE_POW				50
+#define MOT_START_IMPULSE_CURR_LIMIT_mA		25000
+
+
+
+extern volatile int32_t g_VdcMotor;
+
+/* Struttura Controllo Motore  */
+typedef struct
+{
+    uint8_t  			enable;
+	#define M_EN_NONE     	0
+	#define MOT_EN_CW     	1
+	#define MOT_EN_CCW    	2
+	#define MOT_EN_HOLD   	3
+    MOTOR_DIRECTION_T 	dir;			/* Motor direction 		*/
+    bool				enable_proc;
+    bool				disable_proc;
+#define MOT_MIN_STARTUP   6
+    uint8_t 			new_ph_in;
+    uint8_t  			sector_drv;		/* Driver sector */
+    uint8_t  			phase_stopreverse;
+    bool				startup_impulsetime_enabled;
+    uint32_t			startup_impulsetime;
+    uint32_t			stoprev_pow;
+    uint32_t			stoprev_time;
+    uint32_t 			sector_time;
+
+    int32_t 			rpm;
+    int32_t 			rpm_coeff;
+	int32_t 			rpm_acc;
+
+	int32_t 			rpm_filtered;
+    int32_t 			rpm_filtered_acc;
+
+#if MOT_OFFSET_MANAGMENT_VER == 1
+    uint16_t 			drv_offset1_cw;
+    uint16_t 			drv_offset1_ccw;
+    uint16_t 			drv_offset2_cw;
+    uint16_t 			drv_offset2_ccw;
+    uint16_t 			drv_offset_correction_on;
+    uint16_t 			drv_offset_correction;
+#endif
+
+#if MOT_OFFSET_MANAGMENT_VER == 2
+    uint16_t 			drv_offset_cw_start;
+    uint16_t 			drv_offset_ccw_start;
+    uint16_t 			drv_offset_speed_coeff_cw;
+    uint16_t 			drv_offset_speed_coeff_ccw;
+    uint16_t 			drv_offset_torque_coeff;
+    uint16_t 			drv_offset_correction_on;
+    uint16_t 			drv_offset_correctionA;
+    uint16_t 			drv_offset_correctionB;
+    uint16_t 			drv_offset_correctionC;
+#endif
+
+    uint16_t 			power_req;
+    uint16_t 			power_pro;
+    uint16_t 			power_lim;
+    uint16_t 			break_state;
+
+    uint16_t 			sin_p1;   //  applicata
+    uint16_t 			sin_p2;
+    uint16_t 			sin_p3;
+
+    uint32_t 			i_lim;
+    uint32_t 			i_lim_start;
+    uint16_t 			i_lim_active;
+    uint16_t 			i_lim_restore;
+
+#if MOT_HALLSENS_MANAGMENT_VER == 1
+    uint8_t  			hall;			/* Hall sensor value 	*/
+    uint8_t  			last_hall;		/* Last hall sensor value 	*/
+    uint8_t  			hall_with_last;	/* Last hall + current hall values */
+    uint8_t  			last_sector_drv;/* Last driver sector */
+    uint32_t 			phase_counter;
+    uint32_t 			phase_period;
+    uint32_t 			phase_period_lim;
+    uint32_t 			phase_value[3];
+    uint16_t 			phase_v_index;
+    uint8_t  			phase_startup;
+    uint32_t 			gen_accu;
+    uint32_t 			gen_step;
+#endif
+
+    uint16_t 			power_idle_a;
+    uint16_t 			power_idle_b;
+    uint16_t 			power_idle_c;
+
+#if OPTION_ENGINE_TYPE_GPT
+    bool				holdon_proc;
+    uint16_t 			power_hold_req;
+#endif
+
+} motor_t;
+
+/* Posiziona Sampling di Corrente  */
+typedef struct
+{
+    uint16_t index ;
+    uint32_t ad[3];
+    uint32_t absad[3];
+    uint32_t z[3];
+    uint32_t vu[3];
+    uint32_t vusum;
+    uint32_t absum;
+    uint32_t ipeak;
+    uint32_t ipeak_avg;
+    uint32_t iline;
+    uint32_t vmot;
+
+    uint32_t phaseA_delay_tick;
+    int32_t imotA_zerocross;
+    uint32_t phaseB_delay_tick;
+    int32_t imotB_zerocross;
+    uint32_t phaseC_delay_tick;
+    int32_t imotC_zerocross;
+} mcurrent_t;
+
+typedef struct
+{
+	#define SPD_PHASE_AVGNUM	1
+	#define SPD_BUF_LEN			(6*SPD_PHASE_AVGNUM)
+	#define SPD_NUM_MEASURE		3
+    uint8_t idx ;
+    uint32_t val[SPD_BUF_LEN];
+    uint32_t sum ;
+    uint32_t phase_val;
+} mspeed_t;
+
+static mcurrent_t g_mcurrent;
+static motor_t g_mot;
+static mspeed_t g_motspd;
+static bldc_handler_t g_bldc;
+extern const int32_t g_hall_step_table[];
+
+#if MOT_OFFSET_MANAGMENT_VER == 1
+static void _update_drv_offset_correction(void)
+{
+	uint16_t rpm = g_mot.rpm;
+	uint16_t coeff;
+
+	if( g_mot.drv_offset_correction_on == 0 )
+	{
+		/* Output */
+		if( g_mot.dir == MOTOR_DIRECTION_CW )
+			g_mot.drv_offset_correction = g_mot.drv_offset2_cw%1024;
+		if( g_mot.dir == MOTOR_DIRECTION_ACW )
+			g_mot.drv_offset_correction = g_mot.drv_offset2_ccw%1024;
+		return;
+	}
+
+	if( rpm > MOTOR0_MAX_RPM )
+		rpm = MOTOR0_MAX_RPM;
+
+#define MOT_PHASE_OFFSET_COEFFCW	((1024 + g_mot.drv_offset2_cw - g_mot.drv_offset1_cw)%1024)
+#define MOT_PHASE_OFFSET_COEFFCCW	((1024 + g_mot.drv_offset2_ccw - g_mot.drv_offset1_ccw)%1024)
+
+	if( g_mot.dir == MOTOR_DIRECTION_CW )
+	{
+		coeff = MOT_PHASE_OFFSET_COEFFCW;
+		g_mot.drv_offset_correction = (g_mot.drv_offset1_cw + ((rpm*coeff)/MOTOR0_MAX_RPM))%1024;
+	}
+
+	if( g_mot.dir == MOTOR_DIRECTION_ACW )
+	{
+		coeff = MOT_PHASE_OFFSET_COEFFCCW;
+		g_mot.drv_offset_correction = (g_mot.drv_offset1_ccw + ((rpm*coeff)/MOTOR0_MAX_RPM))%1024;
+	}
+}
+#endif
+
+#if MOT_OFFSET_MANAGMENT_VER == 2
+static void _update_drv_offset_correction(void)
+{
+	uint32_t imot = g_mcurrent.ipeak_avg;
+	uint16_t rpm = g_mot.rpm_filtered;
+	uint16_t coeff;
+	uint16_t offs;
+
+	if( g_mot.drv_offset_correction_on == 0 )
+	{
+		/* Output */
+		if( g_mot.dir == MOTOR_DIRECTION_CW )
+			offs = g_mot.drv_offset_cw_start;
+		if( g_mot.dir == MOTOR_DIRECTION_ACW )
+			offs = g_mot.drv_offset_ccw_start;
+		g_mot.drv_offset_correctionA = (offs+MOT_PHASE_OFFSET_HALLA)%1024;
+		g_mot.drv_offset_correctionB = (offs+MOT_PHASE_OFFSET_HALLB)%1024;
+		g_mot.drv_offset_correctionC = (offs+MOT_PHASE_OFFSET_HALLC)%1024;
+		return;
+	}
+
+	if( imot > MOT_START_IMPULSE_CURR_LIMIT_mA )
+		imot = MOT_START_IMPULSE_CURR_LIMIT_mA;
+
+	if( rpm > MOTOR0_MAX_RPM )
+		rpm = MOTOR0_MAX_RPM;
+
+	/* Speed adapter:
+	 * offs = (offs_range/2400)*rpm+offs_0 = 0,022*rpm+offs_0 = (1442*rpm)/65536+offs_0
+	 * offs_range = 53
+	 * offs_0 = offset a 0rpm = offs_2400-53
+	 */
+	if( g_mot.dir == MOTOR_DIRECTION_CW )
+	{
+		offs = (g_mot.drv_offset_cw_start + ((rpm*g_mot.drv_offset_speed_coeff_cw)>>16));
+	}
+
+	if( g_mot.dir == MOTOR_DIRECTION_ACW )
+	{
+		offs = (g_mot.drv_offset_ccw_start + ((rpm*g_mot.drv_offset_speed_coeff_ccw)>>16));
+	}
+
+	/* Torque adapter:
+	 *
+	 */
+	if( rpm < 10 && imot > 3000 )
+	{
+		offs += ((imot*g_mot.drv_offset_torque_coeff)>>16);
+	}
+
+	if( offs > (1024 + 54) )
+		offs = (1024 + 54);
+	if( offs < 940 )
+		offs = 940;
+
+	/* Output */
+	g_mot.drv_offset_correctionA = (offs+MOT_PHASE_OFFSET_HALLA)%1024;
+	g_mot.drv_offset_correctionB = (offs+MOT_PHASE_OFFSET_HALLB)%1024;
+	g_mot.drv_offset_correctionC = (offs+MOT_PHASE_OFFSET_HALLC)%1024;
+}
+#endif
+
+
+static inline void _get_drv_offsets(uint16_t *pa, uint16_t *pb, uint16_t *pc)
+{
+	#define ANGLE_120  ( 1024 / 3 )
+	#define ANGLE_240  ( 2048 / 3 )
+
+	_update_drv_offset_correction();
+
+#if MOT_HALLSENS_MANAGMENT_VER == 1
+	uint32_t ang = (g_mot.gen_accu >> 22);
+#endif
+#if MOT_HALLSENS_MANAGMENT_VER == 2
+	uint32_t ang = MOTOR_HALLSENS_GetAngle();
+#endif
+
+#if MOT_OFFSET_MANAGMENT_VER == 1
+	*pa = ang + g_mot.drv_offset_correction;
+	*pb = ang + (MOTOR_HALLSENS_ANGLE_240>>(MOTOR_HALLSENS_ANGLE_RANGE_BIT-10)) + g_mot.drv_offset_correction;
+	*pc = ang + (MOTOR_HALLSENS_ANGLE_120>>(MOTOR_HALLSENS_ANGLE_RANGE_BIT-10)) + g_mot.drv_offset_correction;
+#endif
+#if MOT_OFFSET_MANAGMENT_VER == 2
+	*pa = ang + g_mot.drv_offset_correctionA;
+	*pb = ang + (MOTOR_HALLSENS_ANGLE_240>>(MOTOR_HALLSENS_ANGLE_RANGE_BIT-10)) + g_mot.drv_offset_correctionB;
+	*pc = ang + (MOTOR_HALLSENS_ANGLE_120>>(MOTOR_HALLSENS_ANGLE_RANGE_BIT-10)) + g_mot.drv_offset_correctionC;
+#endif
+}
+
+
+static void _enable_driver(bool state)
+{
+	if( state )
+	{
+		if (g_mot.break_state )
+		{
+			g_mot.break_state = 0;
+			bldc_enable_break_detect(&g_bldc);
+		}
+	}
+	else
+	{
+	}
+}
+
+#if MOT_HALLSENS_MANAGMENT_VER == 1
+static void _angle_sync(uint16_t offset)
+{
+    /*
+     * 60 gradi step su una scala di 1024 punti
+     * pos = sector * 1024/6
+     */
+	#define M_OFFSET_30DG    85
+	#define M_OFFSET_15DG    42
+    uint32_t v ;
+    v = (uint32_t)g_mot.sector_drv;
+    v *= 1024;
+    v /= 6;
+    g_mot.gen_accu = (v << 22);
+}
+
+static void _encoder_update(uint32_t sectortime)
+{
+	extern const int32_t g_hall_step_table[];
+    int32_t stp = g_hall_step_table[g_mot.hall_with_last];
+    ENCODER_Update(stp, sectortime);
+}
+
+static void _speed_obs(void)
+{
+}
+
+static void _speed_init(uint32_t value)
+{
+	for(int i =0; i < SPD_BUF_LEN; i++)
+		g_motspd.val[i] = value;
+	g_motspd.sum = (value*SPD_NUM_MEASURE);
+	g_motspd.idx = 0;
+}
+
+static void _speed_add(uint32_t value)
+{
+	uint8_t i = (g_motspd.idx + SPD_BUF_LEN - SPD_NUM_MEASURE) % SPD_BUF_LEN;
+	g_motspd.sum -= g_motspd.val[i];
+	g_motspd.sum += value;
+	g_motspd.val[g_motspd.idx] = value;
+	if ( ++g_motspd.idx >= SPD_BUF_LEN)
+		g_motspd.idx = 0;
+	g_motspd.phase_val = (g_motspd.sum * (6/SPD_NUM_MEASURE));
+}
+
+static void _calc_speed_rpm(void)
+{
+    int32_t v;
+
+	if( g_motspd.phase_val != 0 )
+		v = (MOTOR_PWM_FREQ * 60) / (g_motspd.phase_val * MOTOR_POLE_COUPLES);
+	else
+	  	v = 0;
+
+    /* Filtered speed */
+    if( g_mot.phase_startup < MOT_MIN_STARTUP || g_mot.rpm_coeff == 0 )
+		g_mot.rpm_acc = (((uint32_t)v)<<10);
+    else
+		g_mot.rpm_acc += (g_mot.rpm_coeff * (v - g_mot.rpm)) >> (16-10);
+	g_mot.rpm = (g_mot.rpm_acc>>10);
+}
+
+static void _hallsens_init(void)
+{
+	g_mot.phase_startup = 0;
+	g_mot.power_pro = 0;
+	g_mot.new_ph_in = 0;
+	g_mot.phase_value[0] = g_mot.phase_value[1] = g_mot.phase_value[2] = 0;
+}
+#endif
+
+static bool _transition_to_idle_power(uint16_t a, uint16_t b, uint16_t c)
+{
+	bool transitionon = false;
+	if( g_mot.power_idle_a < a ) {g_mot.power_idle_a++; transitionon=true;}
+	if( g_mot.power_idle_a > a ) {g_mot.power_idle_a--; transitionon=true;}
+	if( g_mot.power_idle_b < b ) {g_mot.power_idle_b++; transitionon=true;}
+	if( g_mot.power_idle_b > b ) {g_mot.power_idle_b--; transitionon=true;}
+	if( g_mot.power_idle_c < c ) {g_mot.power_idle_c++; transitionon=true;}
+	if( g_mot.power_idle_c > c ) {g_mot.power_idle_c--; transitionon=true;}
+	return transitionon;
+}
+
+
+
+/* debug variables */
+uint32_t dbg_Imot;
+uint32_t dbg_Pmot;
+uint32_t dbg_IzeroA, dbg_IzeroB, dbg_IzeroC;
+uint32_t dbg_pa, dbg_pb, dbg_pc;
+
+static void _drive(BLDC_EVENT_T ev)
+{
+	uint16_t pa, pb, pc;
+	uint16_t offa, offb, offc;
+	uint16_t drvoffset = 0;
+	uint32_t sectortime = 0;
+	uint32_t ilim;
+
+	static uint16_t dbgA, dbgB;
+
+	if( ev == BLDC_EVENT_BREAK )
+	{
+		g_mot.break_state = 1;
+	}
+	if( ev == BLDC_EVENT_I_SAMPLED )
+	{
+		uint32_t v ;
+		uint16_t ad[3];
+		uint16_t i ;
+		uint32_t scale_i = IP_CURR_SCALE;
+
+		//gpio_toggle_pin_output(kTestPoint3);
+		bldc_get_adc(&g_bldc, ad);
+
+		for( i = 0; i < 3; i++ )
+		{
+			/* Low pass filter - delay = 16T */
+			g_mcurrent.ad[i] = ((g_mcurrent.ad[i] * 15) + ad[i]) >> 4;
+			if ( g_mot.enable == M_EN_NONE)
+			{
+				/* Get current offset with motor stopped */
+				g_mcurrent.z[i] =  g_mcurrent.ad[i];
+				g_mcurrent.imotA_zerocross = 0;
+				g_mcurrent.imotB_zerocross = 0;
+				g_mcurrent.imotC_zerocross = 0;
+			}
+		}
+		dbg_IzeroA = g_mcurrent.z[0] * 3300 / 4096;
+		dbg_IzeroB = g_mcurrent.z[1] * 3300 / 4096;
+		dbg_IzeroC = g_mcurrent.z[2] * 3300 / 4096;
+
+		/* Get current absolute value: absad0 = |ad0-offset| */
+		if( g_mcurrent.ad[0] >= g_mcurrent.z[0])
+		{
+			v = g_mcurrent.ad[0] - g_mcurrent.z[0];
+			g_mcurrent.imotA_zerocross = 1;
+		}
+		else
+		{
+			v = g_mcurrent.z[0] - g_mcurrent.ad[0];
+			if( g_mcurrent.imotA_zerocross > 0 )
+			{
+				g_mcurrent.phaseA_delay_tick = 0;
+			}
+			g_mcurrent.imotA_zerocross = -1;
+		}
+		g_mcurrent.absad[0] = v;
+
+		/******DEBUG*******/ if( g_mcurrent.phaseA_delay_tick == 0 ) dbgB = 2000; else dbgB = v<<1;
+
+		/* vu0 = Normalize to applied voltage */
+		if( g_mot.sin_p1 != 0 )
+		{
+			v *= 128;
+			v /= g_mot.sin_p1;
+			if( v > 2048 )
+				v = 2048;
+			g_mcurrent.vu[0] = v;
+		}
+
+		/* Get current absolute value: absad1 = |ad1-offset| */
+		if( g_mcurrent.ad[1] >= g_mcurrent.z[1])
+		{
+			v = g_mcurrent.ad[1] - g_mcurrent.z[1];
+			g_mcurrent.imotB_zerocross = 1;
+		}
+		else
+		{
+			v = g_mcurrent.z[1] - g_mcurrent.ad[1];
+			if( g_mcurrent.imotB_zerocross > 0 )
+			{
+				g_mcurrent.phaseB_delay_tick = 0;
+			}
+			g_mcurrent.imotB_zerocross = -1;
+		}
+		g_mcurrent.absad[1] = v;
+
+		/******DEBUG*******/ if( g_mcurrent.phaseB_delay_tick == 0 ) dbgB = 2000;
+
+		/* vu1 = Normalize to applied voltage */
+		if( g_mot.sin_p2 != 0 )
+		{
+			v *= 128;
+			v /= g_mot.sin_p2;
+			if( v > 2048 )
+				v = 2048;
+			g_mcurrent.vu[1] = v;
+		}
+
+		/* Get current absolute value: absad2 = |ad2-offset| */
+		if( g_mcurrent.ad[2] >= g_mcurrent.z[2])
+		{
+			v = g_mcurrent.ad[2] - g_mcurrent.z[2];
+			g_mcurrent.imotC_zerocross = 1;
+		}
+		else
+		{
+			v = g_mcurrent.z[2] - g_mcurrent.ad[2];
+			if( g_mcurrent.imotC_zerocross > 0 )
+			{
+				g_mcurrent.phaseC_delay_tick = 0;
+			}
+			g_mcurrent.imotC_zerocross = -1;
+		}
+		g_mcurrent.absad[2] = v ;
+
+		/******DEBUG*******/ if( g_mcurrent.phaseC_delay_tick == 0 ) dbgB = 2000;
+
+		/* vu2 = Normalize to applied voltage */
+		if( g_mot.sin_p3 != 0 )
+		{
+			v *= 128;
+			v /= g_mot.sin_p3;
+			if( v > 2048 )
+				v = 2048;
+			g_mcurrent.vu[2] = v;
+		}
+
+		/* Voltage average */
+		g_mcurrent.vusum = ( g_mcurrent.vu[0] + g_mcurrent.vu[1] + g_mcurrent.vu[2])/3;
+
+		////   g_mcurrent.absum  =  ( g_mcurrent.absad[0] +g_mcurrent.absad[1]+g_mcurrent.absad[2]) /3;
+		/// v =  ( g_mcurrent.absad[0] +g_mcurrent.absad[1]+g_mcurrent.absad[2]) /2;  // Tensione UINTARIA
+
+		/* Absolute current average */
+		v = (g_mcurrent.absad[0] + g_mcurrent.absad[1] + g_mcurrent.absad[2])/3;
+		g_mcurrent.ipeak = v * scale_i;
+
+		/* Filtered absolute current
+		 * alpha = Tp/LPdelay = 48us / 10ms = 0.0048
+		 * Q = 16
+		 * alpha_scaled = 2^Q * 0.0048 = 315
+		 * N = 8
+		 * y_state += (alpha_scaled * (x-y)) >> (Q-N);
+		 * y = y_state >> N;
+		 */
+		g_mcurrent.absum += (128 * ((int)g_mcurrent.ipeak - (int)(g_mcurrent.ipeak_avg))) >> (16-8);   // Integrata @ 10 mS
+		g_mcurrent.ipeak_avg = (g_mcurrent.absum>>8);
+		dbg_Imot = g_mcurrent.ipeak_avg;
+
+		/* Calcolo media e picco-picco nel periodo di giro */
+//		if( g_mcurrent.ipeak_avg > g_mcurrent.periodimax )
+//			g_mcurrent.periodimax = g_mcurrent.ipeak_avg;
+//		if( g_mcurrent.ipeak_avg < g_mcurrent.periodimin )
+//			g_mcurrent.periodimin = g_mcurrent.ipeak_avg;
+//		if( ++g_mcurrent.periodtick >= ((60 * MOTOR_PWM_FREQ)/ (g_mot.rpm_filtered)) )
+//		{
+//			g_mcurrent.periodtick = 0;
+//			if( g_mcurrent.periodimax > g_mcurrent.periodimin )
+//			{
+//				g_mcurrent.imot_pp = g_mcurrent.periodimax - g_mcurrent.periodimin;
+//				g_mcurrent.imot_avg = (g_mcurrent.periodimax + g_mcurrent.periodimin)/2;
+//			}
+//			else
+//			{
+//				g_mcurrent.imot_pp = 0;
+//				g_mcurrent.imot_avg = 0;
+//			}
+//			g_mcurrent.periodimax = 0;
+//			g_mcurrent.periodimin = MOT_CURR_LIMIT_mA;
+//		}
+
+		/* Tensione  Applicata al MOTORE */
+		if( g_bldc.tim_arr != 0 )
+		{
+			g_mcurrent.vmot = (g_VdcMotor * g_mot.power_pro) / g_bldc.tim_arr;
+		}
+
+		/* Corrente di linea */
+		v = (g_mcurrent.vmot * ILINE_CURR_SCALE) / 10;
+		if( g_VdcMotor > 0 )
+			g_mcurrent.iline = (v * g_mcurrent.ipeak_avg) / (g_VdcMotor);
+		else
+			g_mcurrent.iline = 0;
+	}
+	if( ev == BLDC_EVENT_PWM_PERIOD )
+	{
+#if MOT_HALLSENS_MANAGMENT_VER == 2
+		/* Read HALL SENSOR */
+//		if( MOTOR_HALLSENS_Tick() )
+//		{
+//			/* hall changed */
+//			int stp = MOTOR_HALLSENS_GetEncoderStep(&g_mot.sector_time);
+//			g_mot.sector_drv = MOTOR_HALLSENS_GetSector();
+//			g_mot.new_ph_in |= (1<<g_mot.sector_drv);
+//		    ENCODER_Update(stp, g_mot.sector_time);
+//
+//			if( g_mot.phase_stopreverse > 0 )
+//			{
+//				g_mot.phase_stopreverse--;
+//			}
+//		}
+		/* Filtered speed */
+		if( g_mot.rpm_coeff == 0 )
+		{
+			g_mot.rpm = MOTOR_HALLSENS_GetSpeedRpm();
+			g_mot.rpm_acc = g_mot.rpm<<10;
+		}
+		else
+		{
+			g_mot.rpm_acc += (g_mot.rpm_coeff * (MOTOR_HALLSENS_GetSpeedRpm() - g_mot.rpm)) >> (16-10);
+			g_mot.rpm = (g_mot.rpm_acc>>10);
+		}
+#endif
+
+#if MOT_HALLSENS_MANAGMENT_VER == 1
+		/* Read HALL SENSOR */
+		g_mot.hall = MOTOR_HALLSENS_ReadHall();
+
+		if ( g_mot.hall != g_mot.last_hall )
+		{
+			sectortime = g_mot.phase_counter + 1;
+			g_mot.phase_counter = 0;
+
+			/* Update current speed estimation */
+			if(g_mot.phase_startup < MOT_MIN_STARTUP )
+				_speed_init(sectortime);
+			else
+				_speed_add(sectortime);
+		}
+		else
+		{
+			if( g_mcurrent.phaseA_delay_tick < 10000 )
+				g_mcurrent.phaseA_delay_tick++;
+			if( g_mcurrent.phaseB_delay_tick < 10000 )
+				g_mcurrent.phaseB_delay_tick++;
+			if( g_mcurrent.phaseC_delay_tick < 10000 )
+				g_mcurrent.phaseC_delay_tick++;
+			if ( g_mot.phase_counter < 10000)
+				g_mot.phase_counter++;
+			if ( g_mot.phase_counter < g_mot.phase_period_lim )
+				g_mot.gen_accu += g_mot.gen_step;
+		}
+
+		/* Get motor pole sector ( 60� each sector ) */
+		g_mot.sector_drv = MOTOR_HALLSENS_GetSectorEx(g_mot.hall, g_mot.dir);
+
+		if ( g_mot.hall != g_mot.last_hall )
+		{
+			/* sector changed! */
+			g_mot.new_ph_in |= (1<<g_mot.sector_drv);
+
+			/* new step in */
+			g_mot.hall_with_last = ((g_mot.last_hall << 3) | g_mot.hall ) & 0x3F;
+			g_mot.last_hall = g_mot.hall;
+
+			/* Save ticks elapsed in the last sector and reset counter */
+			g_mot.phase_value[g_mot.phase_v_index] = sectortime;
+			if (++g_mot.phase_v_index >= 3)
+				g_mot.phase_v_index = 0;
+
+			/* Estimated period time: is the time of 6 sectors */
+			g_mot.phase_period = ( g_mot.phase_value[0] + g_mot.phase_value[1] + g_mot.phase_value[2] ) * 2;
+			g_mot.phase_period_lim = (g_mot.phase_period / 6);
+
+			/* Anticipo leggermente per compensare l'imprecisione dell'encoder */
+			g_mot.phase_period_lim -= ( g_mot.phase_period_lim >> 3 );
+
+			/*
+			 * DDS: T[periodo ripetizione] = Tp[tempo campionamento] * 2^32 / K
+			 * Tp = periodo interrupt (48.75us)
+			 * T = NTp = g_mot.phase_period * Tp
+			 * Calcolo il fattore K di incremento per il DDS: K = Tp * 2^32 / T = 2^32 / g_mot.phase_period
+			 */
+			g_mot.gen_step = (0xFFFFFFFF / g_mot.phase_period);
+
+			/* Increment startup */
+			if ( g_mot.phase_startup < 255)
+				g_mot.phase_startup++;
+
+			_angle_sync(0);
+			_encoder_update(sectortime);
+
+			if( g_mot.phase_stopreverse > 0 )
+			{
+				g_mot.phase_stopreverse--;
+			}
+		}
+
+		/* primi 6 step (6 settori): senza RAMPA! */
+		if ( (g_mot.phase_startup < MOT_MIN_STARTUP) )
+			_angle_sync(0); /// M_OFFSET_15DG);
+
+		if ( (g_mot.phase_startup >= MOT_MIN_STARTUP ) && g_mot.enable )
+		{
+			/* After startup steps */
+			if ( g_mot.phase_counter > (g_mot.phase_period_lim << 1) )
+			{
+				/* Counter slowed down: is locked on this phase? Force update speed estimation */
+				_speed_add(g_mot.phase_counter);
+			}
+
+			/* Get estimated speed */
+			_calc_speed_rpm();
+		}
+		else
+		{
+			g_mot.rpm = 0;
+			g_mot.rpm_acc = 0;
+		}
+
+		/// Timeout Encoder !
+		if( g_mot.phase_counter >= 2000 )
+		{
+			/* Motor breaked or very slow */
+			g_mot.phase_period = 2000;
+			g_mot.phase_period_lim = (g_mot.phase_period / 6);
+			g_mot.phase_period_lim -= ( g_mot.phase_period_lim >> 4 );
+			g_mot.gen_step = (0xFFFFFFFF / g_mot.phase_period);
+			_speed_add(0);
+		}
+#endif
+
+		g_mot.rpm_filtered_acc += (1024 * (g_mot.rpm - g_mot.rpm_filtered)) >> (16-10);
+		g_mot.rpm_filtered = (g_mot.rpm_filtered_acc>>10);
+
+		/// HW break !
+		if( g_mot.break_state )
+		{
+			g_mot.enable_proc = false;
+			g_mot.disable_proc = false;
+			g_mot.enable = M_EN_NONE;
+			g_mot.stoprev_time = 0;
+			g_mot.dir = MOTOR_DIRECTION_ANY;
+		}
+
+		// Drive !!!!
+		if( g_mot.stoprev_time > 0 )
+		{
+			g_mot.stoprev_time--;
+			if( g_mot.power_req < g_mot.stoprev_pow && (g_mot.stoprev_time%20) == 0 )
+			{
+				g_mot.power_req++;
+			}
+			if( g_mot.phase_stopreverse == 0 || g_mot.stoprev_time == 0 )
+			{
+				g_mot.enable_proc = false;
+				g_mot.disable_proc = true;
+				g_mot.dir = MOTOR_DIRECTION_ANY;
+				g_mot.power_pro = 0;
+				g_mot.power_req = 0;
+				g_mot.enable = M_EN_NONE;
+				g_mot.stoprev_time = 0;
+				g_mot.phase_stopreverse = 0;
+				bldc_get_pwm(&g_bldc, &g_mot.power_idle_a, &g_mot.power_idle_b, &g_mot.power_idle_c);
+			}
+		}
+
+		/* Get phase voltage offsets */
+		_get_drv_offsets(&offa, &offb, &offc);
+		SWM_calc_signed( offa, offb, offc, g_mot.power_pro, &pa, &pb, &pc, MOT_PWM_MIN, MOT_PWM_MAX);
+
+		/* Set PWM driver with the sinusoidal values of the 3 phases:
+		 * pa, pb, pc: sin wave of each phase scaled with factor g_mot.power_pro
+		 * pa = sin(0�)   * g_mot.power_pro / 256
+		 * pc = sin(120�) * g_mot.power_pro / 256
+		 * pb = sin(240�) * g_mot.power_pro / 256
+		 * s_tbl_a, s_tbl_b, s_tbl_c: normalized module values of each phase
+		 * s_tbl_a = |sin(0�)  |
+		 * s_tbl_c = |sin(120�)|
+		 * s_tbl_b = |sin(240�)|
+		 */
+		if ( g_mot.enable == MOT_EN_CW )
+		{
+			bldc_set_pwm(&g_bldc, pa, pc, pb);
+			g_mot.sin_p1 = s_tbl_b;
+			g_mot.sin_p2 = s_tbl_c;
+			g_mot.sin_p3 = s_tbl_a;
+		}
+		else if ( g_mot.enable == MOT_EN_CCW )
+		{
+			bldc_set_pwm(&g_bldc, pa, pb, pc);
+			g_mot.sin_p1 = s_tbl_c;
+			g_mot.sin_p2 = s_tbl_b;
+			g_mot.sin_p3 = s_tbl_a;
+		}
+		else if ( g_mot.enable == MOT_EN_HOLD )
+		{
+			bldc_set_pwm(&g_bldc, g_mot.power_pro, 0, g_mot.power_pro);
+			g_mot.sin_p1 = g_mot.power_pro;
+			g_mot.sin_p2 = 0;
+			g_mot.sin_p3 = g_mot.power_pro;
+		}
+		else
+		{
+			if( g_mot.enable_proc )
+			{
+				/* Go to power equal 128 on each of three phases */
+				if( !_transition_to_idle_power(128,128,128) )
+				{
+					/* Start running */
+					 g_mot.enable_proc = false;
+					 if( g_mot.dir == MOTOR_DIRECTION_CW )
+						 g_mot.enable = MOT_EN_CW;
+					 if( g_mot.dir == MOTOR_DIRECTION_ACW )
+						 g_mot.enable = MOT_EN_CCW;
+					MOTOR_HALLSENS_SetDir(g_mot.dir);
+					MOTOR_HALLSENS_Clear();
+#if MOT_HALLSENS_MANAGMENT_VER==1
+					_hallsens_init();
+#endif
+					g_mot.power_pro = 0;
+					g_mot.new_ph_in = 0;
+					g_mot.sector_time = 0;
+#if MOT_START_IMPULSE_TIME_MS != 0
+					if( g_mot.startup_impulsetime_enabled )
+					{
+						g_mot.startup_impulsetime_enabled = false;
+						g_mot.startup_impulsetime = MOT_START_IMPULSE_TIME_MS * 20;	/* 50ms */
+						g_mot.power_req = 25;
+						g_mot.i_lim_start = MOT_CURR_LIMIT_mA;
+					}
+					else
+						g_mot.startup_impulsetime = 0;
+#else
+					g_mot.startup_impulsetime = 0;
+#endif
+				}
+				bldc_set_pwm(&g_bldc, g_mot.power_idle_a, g_mot.power_idle_b, g_mot.power_idle_c);
+			}
+			else if( g_mot.disable_proc )
+			{
+				if( !_transition_to_idle_power(0,0,0) )
+				{
+					_enable_driver(false);
+					g_mot.disable_proc = false;
+				}
+				bldc_set_pwm(&g_bldc, g_mot.power_idle_a, g_mot.power_idle_b, g_mot.power_idle_c);
+			}
+#if OPTION_ENGINE_TYPE_GPT
+			else if( g_mot.holdon_proc )
+			{
+				if( !_transition_to_idle_power(g_mot.power_hold_req, 0, g_mot.power_hold_req) )
+				{
+					g_mot.holdon_proc = false;
+				}
+				bldc_set_pwm(&g_bldc, g_mot.power_idle_a, g_mot.power_idle_b, g_mot.power_idle_c);
+			}
+#endif
+			else
+			{
+				bldc_set_pwm(&g_bldc, g_mot.power_idle_a, g_mot.power_idle_b, g_mot.power_idle_c);
+				g_mot.sin_p1 = 0;
+				g_mot.sin_p2 = 0;
+				g_mot.sin_p3 = 0;
+				g_mot.power_pro = 0;
+			}
+		}
+
+		/*
+		 * Convert speed to power:
+		 * speed range in period time:   450Tp - 75Tp
+		 * power range in PWM duty time: 100   - 255
+		 */
+		#define VV_MAX	450
+		#define VV_MIN	75
+		#define PP_MAX	255
+		#define PP_MIN	150
+		uint32_t pz = g_mot.sector_time*6;
+		if( pz > VV_MAX )
+			pz = VV_MAX;
+		if( pz < VV_MIN)
+			pz = VV_MIN;
+		pz = (((VV_MAX - pz) * (PP_MAX - PP_MIN)) / (VV_MAX - VV_MIN)) + PP_MIN;
+		if( pz > PP_MAX )
+			pz = PP_MAX ;
+		g_mot.power_lim = (uint16_t)pz;
+
+		if( g_mot.stoprev_time > 0 )
+		{
+			ilim = MOT_START_IMPULSE_CURR_LIMIT_mA;
+		}
+		else if( g_mot.enable && g_mot.startup_impulsetime > 0 && MOTOR_HALLSENS_PhaseCounter() < 6 )
+		{
+			g_mot.startup_impulsetime--;
+			if( (g_mot.startup_impulsetime%200) == 0 )
+			{
+				/* every 10ms increment requested power */
+				if( g_mot.power_req < MOT_START_IMPULSE_POW )
+					g_mot.power_req++ ;
+			}
+			if( g_mot.i_lim_start < MOT_START_IMPULSE_CURR_LIMIT_mA )
+				g_mot.i_lim_start++;
+
+			ilim = g_mot.i_lim_start;
+		}
+		else
+		{
+			g_mot.startup_impulsetime = 0;
+			ilim = g_mot.i_lim;
+		}
+
+		/* current limiter */
+		if( g_mcurrent.ipeak > ilim
+#if ILINE_CURR_LIMIT_mA > 0
+				|| g_mcurrent.iline > ILINE_CURR_LIMIT_mA
+#endif
+				)
+		{
+			uint32_t reduction;
+#if OPTION_ENGINE_TYPE_GPT
+			if( g_mcurrent.ipeak > ilim )
+				reduction = 1 + ((g_mcurrent.ipeak - ilim + 500) / 4000);
+			else
+				reduction = 2;
+#else
+			if( g_mcurrent.ipeak > ilim )
+				reduction = 1 + ((g_mcurrent.ipeak - ilim + 500) / 1000);
+			else
+				reduction = 2;
+#endif
+			if( g_mot.i_lim_active < 10 )
+			{
+				/* Reduce PWM scale */
+				if ( g_mot.power_pro >= reduction )
+					g_mot.power_pro -= reduction;
+				g_mot.i_lim_active = MOT_ILIM_ACTIVE_TOUT;
+				g_mot.i_lim_restore = 200;
+			}
+			else
+			{
+				g_mot.i_lim_active--;
+			}
+
+			if( g_mot.power_pro > g_mot.power_req )
+			{
+				g_mot.power_pro--;
+			}
+		}
+		else
+		{
+			if ( g_mot.i_lim_active)
+			{
+				g_mot.i_lim_active--;
+			}
+			if ( g_mot.i_lim_restore)
+			{
+				g_mot.i_lim_restore--;
+			}
+
+			/* Scale factor change allowed */
+			if ( g_mot.power_pro > g_mot.power_lim)
+				g_mot.power_pro = g_mot.power_lim;
+
+			if ( g_mot.power_pro < g_mot.power_req )
+			{
+				if ( (g_mot.i_lim_restore%10)==0 )
+					g_mot.power_pro++;
+			}
+			else if( g_mot.power_pro > g_mot.power_req )
+			{
+				g_mot.power_pro--;
+			}
+		}
+
+		dbg_Pmot = g_mot.power_pro;
+
+		/* Corrente : Campionato su BEFM */
+		bldc_set_adc_sampletime(&g_bldc, g_bldc.tim_arr - 1);
+	}
+
+	bldc_debug_out(dbgA, dbgB);
+}
+
+
+
+
+
+
+
+
+void MOTOR_Init(void)
+{
+	MOTOR_HALLSENS_Init();
+
+	bldc_init(&g_bldc, BLDC_INSTANCE_1);
+	bldc_settings_t settings;
+	bldc_init_settings(&settings);
+	settings.adc_instance = MOTOR_CURRENT_ADC_INSTANCE;
+	settings.tim_instance = MOTOR_DRIVER_TIMER_INSTANCE;
+	settings.priority = 0;
+	settings.adc_ch_phase1 = MOTOR_CURRENT_ADC_CHANNEL_A;
+	settings.adc_ch_phase2 = MOTOR_CURRENT_ADC_CHANNEL_B;
+	settings.adc_ch_phase3 = MOTOR_CURRENT_ADC_CHANNEL_C;
+	settings.pwm_freq = MOTOR_PWM_FREQ;
+	settings.break_enabled = true;
+	bldc_set_callback(&g_bldc, _drive);
+	bldc_open(&g_bldc, &settings);
+
+	/* Initialize motor driver */
+	memset(&g_mcurrent, 0, sizeof(g_mcurrent));
+	memset(&g_mot, 0, sizeof(g_mot));
+    g_mot.i_lim = MOT_CURR_LIMIT_mA;
+    g_mot.rpm_coeff = 0; 			//(48ul<<7);	/* 48us/500us */
+#if MOT_OFFSET_MANAGMENT_VER == 1
+	g_mot.drv_offset1_cw = MOT_PHASE_OFFSET_START_CW;
+	g_mot.drv_offset1_ccw = MOT_PHASE_OFFSET_START_CCW;
+	g_mot.drv_offset2_cw = MOT_PHASE_OFFSET_CW;
+	g_mot.drv_offset2_ccw = MOT_PHASE_OFFSET_CCW;
+#endif
+#if MOT_OFFSET_MANAGMENT_VER == 2
+	g_mot.drv_offset_cw_start = (1024 + MOT_PHASE_OFFSET_CW_2400RPM_5A - MOT_PHASE_OFFSET_SPEED_SPAN_CW)%1024;
+	g_mot.drv_offset_ccw_start = (1024 + MOT_PHASE_OFFSET_CCW_2400RPM_5A - MOT_PHASE_OFFSET_SPEED_SPAN_CCW)%1024;
+	g_mot.drv_offset_speed_coeff_cw = ((MOT_PHASE_OFFSET_SPEED_SPAN_CW*65536)/MOTOR0_MAX_RPM);
+	g_mot.drv_offset_speed_coeff_ccw = ((MOT_PHASE_OFFSET_SPEED_SPAN_CCW*65536)/MOTOR0_MAX_RPM);
+	g_mot.drv_offset_torque_coeff = ((MOT_PHASE_OFFSET_TORQUE_SPAN*65536)/MOT_START_IMPULSE_CURR_LIMIT_mA);
+#endif
+#if OPTION_ENGINE_TYPE_GPT
+	g_mot.power_hold_req = 12;
+#endif
+	g_mot.drv_offset_correction_on = 1;
+
+	//BLDC_Init();
+}
+
+
+uint32_t MOTOR_GetIline( void)
+{
+	return ( g_mcurrent.iline );
+}
+
+uint32_t MOTOR_GetImot(void)
+{
+	return ( g_mcurrent.ipeak_avg );
+}
+
+uint32_t MOTOR_GetILim(void)
+{
+	return ( g_mot.i_lim );
+}
+
+uint32_t MOTOR_GetVmot(void)
+{
+	return ( g_mcurrent.vmot );
+}
+
+void MOTOR_Start(MOTOR_DIRECTION_T dir)
+{
+	_enable_driver(true);
+	g_mot.power_req = 0;
+	g_mot.power_pro = 0;
+	g_mot.new_ph_in = 0;
+	g_mot.i_lim_active = 0;
+	g_mot.i_lim_restore = 0;
+	g_mot.i_lim = MOT_CURR_LIMIT_mA;
+	g_mot.phase_stopreverse = 0;
+	g_mot.stoprev_time = 0;
+	if ( dir == MOTOR_DIRECTION_CW )
+		g_mot.dir = MOTOR_DIRECTION_CW;
+	else
+		g_mot.dir = MOTOR_DIRECTION_ACW;
+	bldc_get_pwm(&g_bldc, &g_mot.power_idle_a, &g_mot.power_idle_b, &g_mot.power_idle_c);
+	g_mot.enable = M_EN_NONE;
+	g_mot.disable_proc = false;
+	g_mot.enable_proc = true;
+#if OPTION_ENGINE_TYPE_GPT
+	g_mot.holdon_proc = false;
+#endif
+
+#if MOT_HALLSENS_MANAGMENT_VER == 1
+	g_mot.phase_startup = 0;
+	g_mot.phase_value[0] = g_mot.phase_value[1] = g_mot.phase_value[2] = 0;
+	_speed_init(0);
+#endif
+	BLDC_StartMotor();
+}
+
+
+bool MOTOR_Stopping(void)
+{
+	if( g_mot.stoprev_time > 0 || (g_mot.enable != M_EN_NONE && g_mot.disable_proc) )
+	{
+		return true;
+	}
+	return false;
+}
+
+void MOTOR_Stop(bool release)
+{
+	if( release )
+	{
+		/* Enable power impulse for the next start */
+		g_mot.startup_impulsetime_enabled = true;
+	}
+
+#if MOT_STOP_BACKSTEPS == 0
+	release = false;
+#endif
+	if( release )
+	{
+		if( g_mot.stoprev_time == 0 )
+		{
+			if( g_mot.dir == MOTOR_DIRECTION_CW )
+			{
+				g_mot.dir = MOTOR_DIRECTION_ACW;
+				g_mot.enable = MOT_EN_CCW;
+			}
+			else if( g_mot.dir == MOTOR_DIRECTION_ACW )
+			{
+				g_mot.dir = MOTOR_DIRECTION_CW;
+				g_mot.enable = MOT_EN_CW;
+			}
+			MOTOR_HALLSENS_SetDir(g_mot.dir);
+			MOTOR_HALLSENS_Clear();
+			g_mot.new_ph_in = 0;
+			g_mot.i_lim_active = 0;
+			g_mot.i_lim_restore = 0;
+			g_mot.i_lim = MOT_CURR_LIMIT_mA;
+			g_mot.stoprev_pow = 50;
+			g_mot.power_req = 10;
+			g_mot.power_pro = 0;
+			g_mot.phase_stopreverse = MOT_STOP_BACKSTEPS;
+			g_mot.stoprev_time = 10000;
+		}
+	}
+	else
+	{
+		g_mot.power_req = 0;
+		g_mot.power_pro = 0;
+		//g_mcurrent.z[0] =  g_mcurrent.z[1] =  g_mcurrent.z[2] = 0;
+		g_mot.enable_proc = false;
+		g_mot.disable_proc = true;
+		g_mot.dir = MOTOR_DIRECTION_ANY;
+		g_mot.enable = M_EN_NONE;
+		g_mot.stoprev_time = 0;
+		bldc_get_pwm(&g_bldc, &g_mot.power_idle_a, &g_mot.power_idle_b, &g_mot.power_idle_c);
+#if OPTION_ENGINE_TYPE_GPT
+		g_mot.disable_proc = false;
+		g_mot.holdon_proc = true;
+		MOTOR_HALLSENS_SetDir(MOTOR_DIRECTION_ANY);
+#endif
+
+	BLDC_StopMotor();
+	}
+}
+
+bool MOTOR_IsOff(void)
+{
+	return (g_mot.enable == M_EN_NONE && !g_mot.disable_proc);
+}
+
+bool MOTOR_IsOn(void)
+{
+	return(g_mot.enable != M_EN_NONE || g_mot.disable_proc || g_mot.enable_proc
+#if OPTION_ENGINE_TYPE_GPT
+			|| g_mot.holdon_proc
+#endif
+		   );
+}
+
+void MOTOR_TurnOff(void)
+{
+	g_mot.enable_proc = false;
+	g_mot.disable_proc = false;
+	g_mot.dir = MOTOR_DIRECTION_ANY;
+	g_mot.enable = M_EN_NONE;
+	g_mot.dir = MOTOR_DIRECTION_ANY;
+	_enable_driver(false);
+}
+
+void MOTOR_StopSlow(void)
+{
+	if( g_mot.enable != M_EN_NONE )
+	{
+		// Decrease POWER
+		while( g_mot.power_req )
+		{
+			g_mot.power_req--;
+			time_delay(3);
+		}
+		time_delay(50);
+	}
+
+	MOTOR_Stop(true);
+}
+
+
+bool MOTOR_NewStepIn(void)
+{
+	bool step = false;
+	if (g_mot.new_ph_in != 0)
+	{
+		g_mot.new_ph_in = 0;
+		step = true;
+	}
+	return step;
+}
+
+bool MOTOR_IlimIsActive(void)
+{
+	if( g_mot.i_lim_active )
+		return(true);
+	else
+		return(false);
+}
+
+void MOTOR_SetIlim(int32_t curlimit)
+{
+	if( curlimit > 0 )
+		g_mot.i_lim = curlimit;
+	else
+		g_mot.i_lim = MOT_CURR_LIMIT_mA;
+}
+
+
+uint16_t MOTOR_GetCurrentPow(void)
+{
+	return( g_mot.power_pro);
+}
+
+void MOTOR_SetPow(uint16_t pow)
+{
+//	if( g_mot.enable != M_EN_NONE || g_mot.enable_proc )
+	if( g_mot.startup_impulsetime == 0 )
+		g_mot.power_req = pow;
+}
+
+void MOTOR_SetSpeedFilterCoeff(int32_t coeff)
+{
+    g_mot.rpm_coeff = coeff;
+}
+
+uint16_t MOTOR_GetSpeed(void)
+{
+	//return (BLDC_GetMecSpeedReferenceMotor());
+	return( g_mot.rpm );
+}
+
+uint16_t MOTOR_GetDirection(void)
+{
+	return (uint16_t)g_mot.dir;
+}
+
+bool MOTOR_HallDisconnected(void)
+{
+	return MOTOR_HALLSENS_IsDisconnected();
+}
+
+void MOTOR_SetDrvOffsetCW(uint32_t off)
+{
+#if MOT_OFFSET_MANAGMENT_VER == 1
+	g_mot.drv_offset2_cw = off;
+#endif
+#if MOT_OFFSET_MANAGMENT_VER == 2
+	if( g_mot.drv_offset_correction_on )
+		g_mot.drv_offset_cw_start = (1024 + off - MOT_PHASE_OFFSET_SPEED_SPAN_CW)%1024;
+	else
+		g_mot.drv_offset_cw_start = off;
+#endif
+}
+
+void MOTOR_SetDrvOffsetCCW(uint32_t off)
+{
+#if MOT_OFFSET_MANAGMENT_VER == 1
+	g_mot.drv_offset2_ccw = off;
+#endif
+#if MOT_OFFSET_MANAGMENT_VER == 2
+	if( g_mot.drv_offset_correction_on )
+		g_mot.drv_offset_ccw_start = (1024 + off - MOT_PHASE_OFFSET_SPEED_SPAN_CCW)%1024;
+	else
+		g_mot.drv_offset_ccw_start = off;
+#endif
+}
+
+void MOTOR_SetDrvFixedOffset(bool onoff)
+{
+	g_mot.drv_offset_correction_on = onoff ? 0 : 1;
+}
+
+void MOTOR_Debug(void)
+{
+	static uint32_t lastcall;
+	static int16_t dbg_m_pow = 128;
+	static uint8_t motenable;
+	static uint8_t dbg_mot_key = 0;
+	static bool dbg_button = 0;
+
+	int k = gpio_read_pin_input(kButton);
+	if( dbg_button == 0 && k != 0 )
+		dbg_button = 2;
+	else if( dbg_button && k == 0 )
+		dbg_button = 3;
+
+    if( time_elapsed(lastcall) >= 100 )
+    {
+    	uint16_t currents[3];
+    	bldc_get_adc(&g_bldc, currents);
+
+    	lastcall = time_get();
+    }
+
+    if( MOTOR_IlimIsActive() )
+    {
+    	DEBUG_PRINTL("MOTDBG", "ILIM %d, %d", g_mcurrent.ipeak, g_mcurrent.ipeak_avg);
+    }
+
+    if( g_mot.break_state )
+    {
+    	DEBUG_PRINTL("MOTDBG", "IBREAK");
+    	MOTOR_Stop(false);
+    }
+
+    if( g_mot.enable != motenable )
+    {
+    	motenable = g_mot.enable;
+    	DEBUG_PRINTL("MOTDBG", "ENABLE = %d", motenable);
+    }
+
+    if( dbg_button == 2 )
+    {
+    	dbg_button = 1;
+        MOTOR_Start(MOTOR_DIRECTION_CW);
+        g_mot.power_req = dbg_m_pow;
+    }
+    if( dbg_button == 3 )
+    {
+    	dbg_button = 0;
+    	MOTOR_StopSlow();
+    }
+}
+

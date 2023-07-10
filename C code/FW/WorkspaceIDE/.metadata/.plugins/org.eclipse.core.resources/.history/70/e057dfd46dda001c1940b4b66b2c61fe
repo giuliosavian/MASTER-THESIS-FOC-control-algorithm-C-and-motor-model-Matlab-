@@ -1,0 +1,7 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_eep.c:5:6:eep_enable_write	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_eep.c:10:6:eep_disable_write	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_eep.c:15:7:eep_program_8	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_eep.c:25:7:eep_program_16	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_eep.c:35:7:eep_program_32	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_eep.c:45:7:eep_program	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_eep.c:65:7:eep_read	32	static

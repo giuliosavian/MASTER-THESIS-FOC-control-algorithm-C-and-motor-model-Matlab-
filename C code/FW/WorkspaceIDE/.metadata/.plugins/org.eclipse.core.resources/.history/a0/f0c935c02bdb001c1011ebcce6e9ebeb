@@ -1,0 +1,5 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_crc.c:66:6:crc_init	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_crc.c:88:6:crc_deinit	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_crc.c:95:6:crc_reset	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_crc.c:103:10:crc_get	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_crc.c:112:6:crc_add	16	static

@@ -1,0 +1,10 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_crc.c:10:30:HALI_CRC_GetDescriptor	4	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_crc.c:15:6:HALI_CRC_Init	4	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_crc.c:20:6:HALI_CRC_Deinit	4	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_crc.c:24:6:HALI_CRC_Reset	4	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_crc.c:29:6:HALI_CRC_AddByte	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_crc.c:34:6:HALI_CRC_AddWord	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_crc.c:39:6:HALI_CRC_AddLong	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_crc.c:44:10:HALI_CRC_GetResult	4	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_crc.c:49:6:HALI_CRC_SetPolynomial	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_crc.c:54:6:HALI_CRC_SetSeed	16	static

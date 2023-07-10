@@ -1,0 +1,5 @@
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/MCSDK_v5.Y.4-Full/MotorControl/MCSDK/MCLib/Any/Src/open_loop.c:47:13:OL_Init	0	static
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/MCSDK_v5.Y.4-Full/MotorControl/MCSDK/MCLib/Any/Src/open_loop.c:69:13:OL_VqdConditioning	8	static
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/MCSDK_v5.Y.4-Full/MotorControl/MCSDK/MCLib/Any/Src/open_loop.c:87:13:OL_UpdateVoltage	0	static
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/MCSDK_v5.Y.4-Full/MotorControl/MCSDK/MCLib/Any/Src/open_loop.c:108:13:OL_Calc	0	static
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/MCSDK_v5.Y.4-Full/MotorControl/MCSDK/MCLib/Any/Src/open_loop.c:141:13:OL_VF	0	static

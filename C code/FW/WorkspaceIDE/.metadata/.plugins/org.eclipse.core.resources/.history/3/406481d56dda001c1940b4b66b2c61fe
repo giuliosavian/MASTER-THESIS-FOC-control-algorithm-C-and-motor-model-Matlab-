@@ -1,0 +1,89 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+# Toolchain: GNU Tools for STM32 (10.3-2021.10)
+################################################################################
+
+-include ../makefile.init
+
+RM := rm -rf
+
+# All of the sources participating in the build are defined here
+-include sources.mk
+-include bsp/utilities/src/subdir.mk
+-include bsp/rtos/osa/subdir.mk
+-include bsp/platform/hlli/subdir.mk
+-include bsp/platform/STM32F4/startup/gcc/subdir.mk
+-include bsp/platform/STM32F4/hll/STM32F4xx_HAL/Src/subdir.mk
+-include bsp/platform/STM32F4/hll/subdir.mk
+-include bsp/platform/STM32F4/subdir.mk
+-include bsp/platform/subdir.mk
+-include bsp/driver/src/subdir.mk
+-include bsp/driver/bldc/MCLib/F4xx/Src/subdir.mk
+-include bsp/driver/bldc/MCLib/Any/Src/subdir.mk
+-include bsp/driver/bldc/MCLib/Any/Inc/subdir.mk
+-include bsp/driver/bldc/subdir.mk
+-include bsp/debug/trace/subdir.mk
+-include bsp/debug/systemview/Syscalls/subdir.mk
+-include bsp/debug/systemview/subdir.mk
+-include bsp/boards/NUCLEOF4/subdir.mk
+-include objects.mk
+
+ifneq ($(MAKECMDGOALS),clean)
+ifneq ($(strip $(S_DEPS)),)
+-include $(S_DEPS)
+endif
+ifneq ($(strip $(S_UPPER_DEPS)),)
+-include $(S_UPPER_DEPS)
+endif
+ifneq ($(strip $(C_DEPS)),)
+-include $(C_DEPS)
+endif
+endif
+
+-include ../makefile.defs
+
+OPTIONAL_TOOL_DEPS := \
+$(wildcard ../makefile.defs) \
+$(wildcard ../makefile.init) \
+$(wildcard ../makefile.targets) \
+
+
+BUILD_ARTIFACT_NAME := bspf4
+BUILD_ARTIFACT_EXTENSION := a
+BUILD_ARTIFACT_PREFIX := lib
+BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
+
+# Add inputs and outputs from these tool invocations to the build variables 
+ARCHIVES += \
+libbspf4.a \
+
+
+# All Target
+all: main-build
+
+# Main-build Target
+main-build: libbspf4.a secondary-outputs
+
+# Tool invocations
+libbspf4.a: $(OBJS) $(USER_OBJS) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-ar -r  "libbspf4.a" @"objects.list" $(USER_OBJS) $(LIBS)
+	@echo 'Finished building target: $@'
+	@echo ' '
+
+# Other Targets
+clean:
+	-$(RM) libbspf4.a
+	-@echo ' '
+
+secondary-outputs:
+
+fail-specified-linker-script-missing:
+	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'
+	@exit 2
+
+warn-no-linker-script-specified:
+	@echo 'Warning: No linker script specified. Check the linker settings in the build configuration.'
+
+.PHONY: all clean dependents main-build fail-specified-linker-script-missing warn-no-linker-script-specified
+
+-include ../makefile.targets

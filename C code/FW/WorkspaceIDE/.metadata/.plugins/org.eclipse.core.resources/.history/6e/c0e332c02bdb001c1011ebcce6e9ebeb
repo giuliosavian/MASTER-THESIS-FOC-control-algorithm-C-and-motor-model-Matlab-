@@ -1,0 +1,15 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_adc.c:22:6:adc_init	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_adc.c:61:6:adc_deinit	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_adc.c:84:16:adc_get_handler	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_adc.c:94:6:adc_init_settings	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_adc.c:105:7:adc_set_callback	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_adc.c:117:7:adc_open	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_adc.c:191:7:adc_close	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_adc.c:218:7:adc_set_channel_buffer	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_adc.c:241:7:adc_set_channel_decimator	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_adc.c:264:7:adc_trigger	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_adc.c:279:7:adc_read	40	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_adc.c:345:10:adc_readlast	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_adc.c:371:13:hal_adc_callback	40	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_adc.c:419:10:adc_convert_vrefint_to_VDDA	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_adc.c:431:7:adc_get_temperature	24	static

@@ -1,0 +1,53 @@
+/*
+ * motor_bldc.h
+ *
+ *  Created on: 16 mag 2022
+ *      Author: gsavian
+ */
+
+#ifndef APP_ENGINE_MOTOR_BLDC_H_
+#define APP_ENGINE_MOTOR_BLDC_H_
+
+#ifndef _ENGINE_MOTOR_H_
+#define _ENGINE_MOTOR_H_
+
+#include "engine/motor_def.h"
+
+void MOTOR_Init(void);
+void MOTOR_Start(MOTOR_DIRECTION_T dir);
+void MOTOR_Stop(bool release);
+
+void 	 MOTOR_SetPow(uint16_t pow);
+uint16_t MOTOR_GetCurrentPow(void);
+bool 	 MOTOR_NewStepIn(void);
+
+bool 	 MOTOR_HallDisconnected(void);
+bool 	 MOTOR_IlimIsActive(void);
+bool 	 MOTOR_RunTooSlow(void);
+uint16_t MOTOR_GetSpeed(void);
+uint16_t MOTOR_GetSampledSpeed(void);
+uint32_t MOTOR_GetImot(void);
+uint32_t MOTOR_GetVmot(void);
+uint32_t MOTOR_GetIline(void);
+uint16_t MOTOR_GetDirection(void);
+void 	 MOTOR_SetIlim(int32_t curlimit);
+uint32_t MOTOR_GetILim(void);
+
+bool 	 MOTOR_IsOn(void);
+void 	 MOTOR_TurnOff(void);
+bool 	 MOTOR_IsOff(void);
+bool MOTOR_Stopping(void);
+void MOTOR_SetSpeedFilterCoeff(int32_t coeff);
+
+void MOTOR_SetDrvFixedOffset(bool onoff);
+void MOTOR_SetDrvEndOffsetCW(uint32_t off);
+void MOTOR_SetDrvEndOffsetCCW(uint32_t off);
+void MOTOR_SetDrvOffsetCW(uint32_t off);
+void MOTOR_SetDrvOffsetCCW(uint32_t off);
+void MOTOR_Debug(void);
+
+
+#endif /* _ENGINE_MOTOR_H_ */
+
+
+#endif /* APP_ENGINE_MOTOR_BLDC_H_ */

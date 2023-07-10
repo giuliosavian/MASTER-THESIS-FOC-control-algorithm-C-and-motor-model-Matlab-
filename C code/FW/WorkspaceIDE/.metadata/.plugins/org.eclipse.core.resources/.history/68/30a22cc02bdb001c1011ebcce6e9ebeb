@@ -1,0 +1,6 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/mc_math.c:100:20:MCM_Clarke	40	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/mc_math.c:168:13:MCM_Park	56	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/mc_math.c:275:20:MCM_Rev_Park	48	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/mc_math.c:330:24:MCM_Trig_Functions	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/mc_math.c:392:16:MCM_Sqrt	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/mc_math.c:440:17:MCM_floatToIntBit	24	static

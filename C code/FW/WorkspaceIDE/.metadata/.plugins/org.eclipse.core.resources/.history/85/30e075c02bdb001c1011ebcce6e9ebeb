@@ -1,0 +1,128 @@
+bsp/platform/STM32F4/hll/STM32F4xx_HAL/Src/stm32f4xx_hal_fmpi2c_ex.o: \
+ C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/STM32F4xx_HAL/Src/stm32f4xx_hal_fmpi2c_ex.c \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal_conf.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\config\sdk_config.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\boards\nucleof4\board_def.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\cpu_def.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\rtos\rtos_def.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\boards\nucleof4\board_io.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_gpio.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_rcc.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_def.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\Legacy/stm32_hal_legacy.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\platform.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\stm32f4xx.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\headers\stm32f401xe.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\cmsis\include\core_cm4.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\cmsis\include\core_cmInstr.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\cmsis\include\cmsis_gcc.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\cmsis\include\core_cmFunc.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\cmsis\include\core_cmSimd.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\headers\system_stm32f4xx.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\hll_common.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\hll_peripheral.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_rcc_ex.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_common.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_adc.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_gpio.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_crc.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_flash.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_i2c.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_pwr.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_rtc.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_spi.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_tim.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_uart.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_wdog.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_eep.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_rcc_ex.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_gpio.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_gpio_ex.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_dma.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_dma_ex.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_cortex.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_adc.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_ll_adc.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_adc_ex.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_crc.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_flash.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_flash_ex.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_flash_ramfunc.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_i2c.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_i2c_ex.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_iwdg.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_pwr.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_pwr_ex.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_rtc.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_rtc_ex.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_spi.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_tim.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_tim_ex.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_uart.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_usart.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_wwdg.h
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal_conf.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\config\sdk_config.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\boards\nucleof4\board_def.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\cpu_def.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\rtos\rtos_def.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\boards\nucleof4\board_io.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\driver\inc\driver_gpio.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_rcc.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_def.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\Legacy/stm32_hal_legacy.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\platform.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\stm32f4xx.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\headers\stm32f401xe.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\cmsis\include\core_cm4.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\cmsis\include\core_cmInstr.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\cmsis\include\cmsis_gcc.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\cmsis\include\core_cmFunc.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\cmsis\include\core_cmSimd.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\headers\system_stm32f4xx.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\hll_common.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\hll_peripheral.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_rcc_ex.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_common.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_adc.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_gpio.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_crc.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_flash.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_i2c.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_pwr.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_rtc.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_spi.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_tim.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_uart.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_wdog.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\hlli\hll_eep.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_rcc_ex.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_gpio.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_gpio_ex.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_dma.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_dma_ex.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_cortex.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_adc.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_ll_adc.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_adc_ex.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_crc.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_flash.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_flash_ex.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_flash_ramfunc.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_i2c.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_i2c_ex.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_iwdg.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_pwr.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_pwr_ex.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_rtc.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_rtc_ex.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_spi.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_tim.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_tim_ex.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_uart.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_usart.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_hal_wwdg.h:

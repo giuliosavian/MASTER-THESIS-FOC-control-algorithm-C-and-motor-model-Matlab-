@@ -1,0 +1,6 @@
+15:47:25 **** Build of configuration Debug for project F4012RE_FOC ****
+make -j4 all 
+Command canceled
+
+15:47:26 Build Cancelled. (took 1s.832ms)
+

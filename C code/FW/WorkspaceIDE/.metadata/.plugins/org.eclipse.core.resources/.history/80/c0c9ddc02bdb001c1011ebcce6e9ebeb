@@ -1,0 +1,37 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+# Toolchain: GNU Tools for STM32 (10.3-2021.10)
+################################################################################
+
+OBJ_SRCS := 
+S_SRCS := 
+C_SRCS := 
+S_UPPER_SRCS := 
+O_SRCS := 
+SU_FILES := 
+OBJS := 
+ARCHIVES := 
+S_DEPS := 
+S_UPPER_DEPS := 
+C_DEPS := 
+
+# Every subdirectory with source files must be described here
+SUBDIRS := \
+bsp/boards/NUCLEOF4 \
+bsp/debug/systemview \
+bsp/debug/systemview/Syscalls \
+bsp/debug/trace \
+bsp/driver/bldc/MCLib/Any/Inc \
+bsp/driver/bldc/MCLib/Any/Src \
+bsp/driver/bldc/MCLib/F4xx/Src \
+bsp/driver/bldc \
+bsp/driver/src \
+bsp/platform/STM32F4/hll/STM32F4xx_HAL/Src \
+bsp/platform/STM32F4/hll \
+bsp/platform/STM32F4/startup/gcc \
+bsp/platform/STM32F4 \
+bsp/platform/hlli \
+bsp/platform \
+bsp/rtos/osa \
+bsp/utilities/src \
+

@@ -1,0 +1,5 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/foc_controller.c:73:6:FOC_Init	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/foc_controller.c:89:6:FOC_Clear	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/foc_controller.c:115:6:FOC_SetRefIq	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/foc_controller.c:123:7:FOC_GetIq	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/foc_controller.c:138:9:FOC_Task	40	static

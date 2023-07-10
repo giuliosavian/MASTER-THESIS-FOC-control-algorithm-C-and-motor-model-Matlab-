@@ -1,0 +1,6 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_watchdog.c:61:6:watchdog_task	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_watchdog.c:151:6:watchdog_init	4	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_watchdog.c:179:10:watchdog_create	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_watchdog.c:200:6:watchdog_changeperiod	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_watchdog.c:217:6:watchdog_refresh	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_watchdog.c:237:6:watchdog_suspend	24	static

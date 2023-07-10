@@ -1,0 +1,6 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/pid.c:43:6:Fuzzy_PID_evaluate_support	48	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/pid.c:57:7:Fuzzy_PID_defuzzify	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/pid.c:73:7:Fuzzy_PID_compute	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/pid.c:87:6:PID_SetParam	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/pid.c:114:6:PID_Reset	4	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/pid.c:126:7:PID_Pro	40	static

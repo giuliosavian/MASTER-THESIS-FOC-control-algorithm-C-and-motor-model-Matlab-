@@ -1,0 +1,7 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_pwr.c:5:6:pwr_init	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_pwr.c:11:6:pwr_deinit	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_pwr.c:16:6:pwr_set_run_mode	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_pwr.c:29:6:pwr_goto_standby	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_pwr.c:34:6:pwr_goto_stop	40	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_pwr.c:69:18:pwr_get_reset_mode	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_pwr.c:74:6:pwr_reset	8	static

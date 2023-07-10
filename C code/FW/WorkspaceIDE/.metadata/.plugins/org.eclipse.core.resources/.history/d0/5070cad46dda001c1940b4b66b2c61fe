@@ -1,0 +1,9 @@
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_ll_tim.h:2738:22:LL_TIM_SetTriggerOutput	16	static
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_ll_tim.h:3205:22:LL_TIM_ClearFlag_CC1	16	static
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_ll_tim.h:3216:26:LL_TIM_IsActiveFlag_CC1	16	static
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_ll_tim.h:3967:22:LL_TIM_GenerateEvent_UPDATE	16	static
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_ll_bus.h:1187:22:LL_APB1_GRP1_EnableClock	24	static
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_ll_bus.h:1265:26:LL_APB1_GRP1_IsEnabledClock	16	static
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\stm32f4\hll\stm32f4xx_hal\inc\stm32f4xx_ll_bus.h:1339:22:LL_APB1_GRP1_DisableClock	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/MCLib/Any/Src/pwm_common.c:76:13:startTimers	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/MCLib/Any/Src/pwm_common.c:108:13:waitForPolarizationEnd	32	static

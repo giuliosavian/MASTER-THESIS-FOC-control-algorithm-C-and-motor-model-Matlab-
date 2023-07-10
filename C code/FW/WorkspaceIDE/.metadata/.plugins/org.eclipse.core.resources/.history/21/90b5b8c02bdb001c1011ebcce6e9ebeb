@@ -1,0 +1,3 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_flash.c:40:10:HALI_FLASH_GetSector	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_flash.c:147:6:HALI_FLASH_Erase	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_flash.c:188:6:HALI_FLASH_Program	48	static

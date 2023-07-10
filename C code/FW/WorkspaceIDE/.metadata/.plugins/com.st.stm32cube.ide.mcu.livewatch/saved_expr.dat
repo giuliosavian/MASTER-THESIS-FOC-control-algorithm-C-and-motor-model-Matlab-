@@ -1,0 +1,16 @@
+TIM1->CNT
+HALL_M1
+FOCVars[0]
+g_engine.filter_req_speed
+g_engine.current_speed
+g_engine.pow_out
+g_engine.pow_in
+HALL_M1._Super.hAvrMecSpeedUnit
+g_pid.pid_ctrl
+g_pid.pid_accu
+PIDIdHandle_M1
+PWM_Handle_M1
+g_dbfoc_Iqfilt
+g_dbfoc_Idfilt
+g_hall
+g_hallsensor_disconnected

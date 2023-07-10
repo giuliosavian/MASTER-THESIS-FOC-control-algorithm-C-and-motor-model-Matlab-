@@ -1,0 +1,17 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/base_timer.c:24:6:basetimer_init	40	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/base_timer.c:43:6:basetimer_deinit	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/base_timer.c:49:6:basetimer_suspendI	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/base_timer.c:56:6:basetimer_suspend	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/base_timer.c:68:10:basetimer_remainedI	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/base_timer.c:78:10:basetimer_remained	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/base_timer.c:90:10:basetimer_elapsedI	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/base_timer.c:102:10:basetimer_elapsed	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/base_timer.c:114:6:basetimer_resumeI	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/base_timer.c:121:6:basetimer_resume	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/base_timer.c:133:6:basetimer_isUsed	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/base_timer.c:146:5:basetimer_start	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/base_timer.c:182:6:basetimer_restartI	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/base_timer.c:192:6:basetimer_restart	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/base_timer.c:206:6:basetimer_removeI	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/base_timer.c:216:6:basetimer_remove	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/base_timer.c:230:6:basetimer_IRQ	16	static

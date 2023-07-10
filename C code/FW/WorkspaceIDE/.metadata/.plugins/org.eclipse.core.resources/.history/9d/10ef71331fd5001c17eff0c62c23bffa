@@ -1,0 +1,111 @@
+/*
+ * motor_def.h
+ *
+ *  Created on: 11 mag 2018
+ *      Author: fpasquetto
+ */
+
+#ifndef _ENGINE_MOTOR_DEF_H_
+#define _ENGINE_MOTOR_DEF_H_
+#include "options.h"
+
+/* Frequenza PWM - corrispondente al tick di misura durata delle fasi */
+#define MOTOR_PWM_FREQ   			20512
+
+
+/* Motor directions */
+typedef enum {
+	MOTOR_DIRECTION_ANY,	/* Uset direction */
+	MOTOR_DIRECTION_CW,		/* Clockwise */
+	MOTOR_DIRECTION_ACW		/* Anticlockwise */
+} MOTOR_DIRECTION_T;
+
+
+#if OPTION_ENGINE_TYPE_GPT
+
+	/* DEFINIZIONE MOTORE 1 - GARDH */
+	/* Coppie di poli motore */
+	#define MOTOR0_POLE_COUPLES				8		/* = 16 poli */
+	/* Riduzione motoriduttore */
+	#define MOTOR0_REDUCTION_RATIO			50		/* 1:50 */
+	/* Velocit� Massime Possibili */
+	#define MOTOR0_MIN_RPM					50
+	#define MOTOR0_MAX_RPM					1400
+
+	/* Max speed reductions */
+	#define MAX_SPEED_SHORT_ARM_PERCENT		100	/* short length arm max speed = 100% of MAX_RPM */
+	#define MAX_SPEED_LONG_ARM_PERCENT		40	/* long length arm max speed = 70% of MAX_RPM */
+
+#else
+
+	/* DEFINIZIONE MOTORE 0 - PENTAX */
+	/* Coppie di poli motore */
+	#define MOTOR0_POLE_COUPLES				8		/* = 16 poli */
+	/* Riduzione motoriduttore */
+	#define MOTOR0_REDUCTION_RATIO			100		/* 1:100 */
+	/* Velocit� Massime Possibili */
+	#define MOTOR0_MIN_RPM					10
+	#define MOTOR0_MAX_RPM					2400	//2850
+
+	/* Max speed reductions */
+	#define MAX_SPEED_SHORT_ARM_PERCENT		100	/* short length arm max speed = 100% of MAX_RPM */
+	#define MAX_SPEED_LONG_ARM_PERCENT		50	/* long length arm max speed = 70% of MAX_RPM */
+
+#endif
+
+
+/* DEFINIZIONE MOTORE 1 - GARDH */
+/* Coppie di poli motore */
+#define MOTOR1_POLE_COUPLES				8		/* = 16 poli */
+/* Riduzione motoriduttore */
+#define MOTOR1_REDUCTION_RATIO			50		/* 1:50 */
+/* Velocit� Massime Possibili */
+#define MOTOR1_MIN_RPM					50
+#define MOTOR1_MAX_RPM					1600
+
+/* DEFINIZIONE MOTORE 2 - BLDC */
+/* Coppie di poli motore */
+#define MOTOR2_POLE_COUPLES				5		/* = 16 poli */
+/* Riduzione motoriduttore */
+//#define MOTOR2_REDUCTION_RATIO			50		/* 1:50 */
+/* Velocit� Massime Possibili */
+#define MOTOR2_MIN_RPM					200
+#define MOTOR2_MAX_RPM					4000
+
+
+/*
+ * Motor Macros
+ */
+#define MOTOR_POLE_COUPLES					(MOTOR0_POLE_COUPLES)
+#define MOTOR_ENCODER_PULSES_FOR_ROUND		(6 * MOTOR_POLE_COUPLES)
+#define MOTOR_ADJUST_SPEED(x)				(((x)*MAX_SPEED_SHORT_ARM_PERCENT)/100)
+#define MOTOR_NORMALIZE_SPEED(x)			(((x)*100)/MAX_SPEED_SHORT_ARM_PERCENT)
+
+#define MOTOR_MIN_SPEED_RPM					(MOTOR0_MIN_RPM)
+#define MOTOR_MAX_SPEED_RPM					MOTOR_ADJUST_SPEED(MOTOR0_MAX_RPM)
+
+/* Speed in giri/minuto */
+#define MOTOR_MAX_SPEED_FACTOR				1024
+#define MOTOR_MIN_SPEED_FACTOR				32	//((MOTOR_MIN_SPEED_RPM * MOTOR_MAX_SPEED_FACTOR) / MOTOR_MAX_SPEED_RPM)
+#define MOTOR_SPEED_FACTOR_TO_PERCENT(f)	(((f)*100)/MOTOR_MAX_SPEED_FACTOR)
+#define MOTOR_SPEED_PERCENT_TO_FACTOR(p)	(((p)*MOTOR_MAX_SPEED_FACTOR)/100)
+#define MOTOR_SPEED_RPM(f)					((MOTOR_MAX_SPEED_RPM * (f) + (MOTOR_MAX_SPEED_FACTOR/2)) / MOTOR_MAX_SPEED_FACTOR)
+#define MOTOR_SPEED_RPM_TO_FACTOR(rpm)		(((rpm) * MOTOR_MAX_SPEED_FACTOR + (MOTOR_MAX_SPEED_RPM/2)) / MOTOR_MAX_SPEED_RPM)
+
+
+/*
+ * Gate Macros
+ */
+/* Encoder pulses in a round */
+#define GATE_ENCODER_PULSES_FOR_ROUND		(MOTOR_ENCODER_PULSES_FOR_ROUND * MOTOR0_REDUCTION_RATIO)
+/*
+ * @brief Get the number of encoder pulses elapsed in a specified time with a specified speed
+ * @param speed = speed factor
+ * @param time = time in ms
+ */
+#define GATE_GET_ENCODER_PULSES(speed,time)	(uint32_t)((MOTOR_SPEED_RPM(speed) * (time) * MOTOR_ENCODER_PULSES_FOR_ROUND)/(60*1000))
+
+
+
+
+#endif /* _ENGINE_MOTOR_DEF_H_ */

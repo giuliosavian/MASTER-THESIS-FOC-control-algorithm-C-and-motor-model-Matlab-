@@ -1,0 +1,8 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/engine_bldc.c:177:13:_update_debug_vars	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/engine_bldc.c:200:17:_speed_control	48	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/engine_bldc.c:377:27:tick1ms_work	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/engine_bldc.c:587:6:ENGINE_Init	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/engine_bldc.c:601:6:ENGINE_UpdateMotorType	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/engine_bldc.c:705:6:ENGINE_Request	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/engine_bldc.c:873:13:engine_debug_callback	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/engine_bldc.c:877:6:ENGINE_Debug	48	static

@@ -1,0 +1,8 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/simple_queue.c:3:6:squeue_init	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/simple_queue.c:18:6:squeue_clear	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/simple_queue.c:27:10:squeue_num_of_bytes	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/simple_queue.c:33:10:squeue_num_of_messages	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/simple_queue.c:39:7:squeue_put_byte	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/simple_queue.c:56:7:squeue_get_byte	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/simple_queue.c:74:7:squeue_put_msg	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/utilities/src/simple_queue.c:86:7:squeue_get_msg	24	static

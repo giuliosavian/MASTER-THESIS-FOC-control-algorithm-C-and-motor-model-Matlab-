@@ -1,0 +1,11 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/pwm_curr_fdbk.c:80:13:PWMC_SetOffsetCalib	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/pwm_curr_fdbk.c:99:13:PWMC_GetOffsetCalib	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/pwm_curr_fdbk.c:133:13:PWMC_GetPhaseCurrents	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/pwm_curr_fdbk.c:181:17:PWMC_SetPhaseVoltage	56	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/pwm_curr_fdbk.c:330:13:PWMC_SwitchOffPWM	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/pwm_curr_fdbk.c:351:13:PWMC_SwitchOnPWM	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/pwm_curr_fdbk.c:379:13:PWMC_CurrentReadingCalibr	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/pwm_curr_fdbk.c:433:23:PWMC_LowPassFilter	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/pwm_curr_fdbk.c:473:6:PWMC_CalcPhaseCurrentsEst	40	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/pwm_curr_fdbk.c:525:13:PWMC_TurnOnLowSides	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/bldc/pwm_curr_fdbk.c:545:17:PWMC_CheckOverCurrent	16	static

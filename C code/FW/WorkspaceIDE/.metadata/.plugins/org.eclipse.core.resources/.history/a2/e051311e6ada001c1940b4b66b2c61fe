@@ -1,0 +1,4 @@
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/MCSDK_v5.Y.4-Full/MotorControl/MCSDK/MCLib/Any/Src/bus_voltage_sensor.c:50:17:VBS_GetBusVoltage_d	0	static
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/MCSDK_v5.Y.4-Full/MotorControl/MCSDK/MCLib/Any/Src/bus_voltage_sensor.c:80:17:VBS_GetAvBusVoltage_d	0	static
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/MCSDK_v5.Y.4-Full/MotorControl/MCSDK/MCLib/Any/Src/bus_voltage_sensor.c:105:17:VBS_GetAvBusVoltage_V	0	static
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/MCSDK_v5.Y.4-Full/MotorControl/MCSDK/MCLib/Any/Src/bus_voltage_sensor.c:131:17:VBS_CheckVbus	0	static

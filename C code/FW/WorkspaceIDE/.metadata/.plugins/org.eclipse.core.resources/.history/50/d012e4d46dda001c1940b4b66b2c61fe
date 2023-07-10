@@ -1,0 +1,7 @@
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\cmsis\include\core_cm4.h:1626:22:NVIC_EnableIRQ	16	static
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\cmsis\include\core_cm4.h:1637:22:NVIC_DisableIRQ	16	static
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\platform\cmsis\include\core_cm4.h:1698:22:NVIC_SetPriority	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_interrupt.c:5:6:interrupt_register_handler	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_interrupt.c:19:6:interrupt_enable	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_interrupt.c:25:6:interrupt_disable	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/driver/src/driver_interrupt.c:31:6:interrupt_set_priority	16	static

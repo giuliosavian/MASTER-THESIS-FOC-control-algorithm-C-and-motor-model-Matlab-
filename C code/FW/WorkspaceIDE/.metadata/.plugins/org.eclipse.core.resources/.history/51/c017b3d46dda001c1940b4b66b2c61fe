@@ -1,0 +1,4 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_SYSVIEW_Config.c:138:13:_cbSendSystemDesc	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_SYSVIEW_Config.c:149:6:SEGGER_SYSVIEW_Conf	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_SYSVIEW_Config.c:154:5:SEGGER_SYSVIEW_X_GetTimestamp	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_SYSVIEW_Config.c:186:5:SEGGER_SYSVIEW_X_GetInterruptId	16	static,ignoring_inline_asm

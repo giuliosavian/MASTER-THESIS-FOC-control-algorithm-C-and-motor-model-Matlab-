@@ -1,0 +1,3 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/stm32f4xx.c:54:6:SystemClock_Config	104	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/stm32f4xx.c:116:6:SystemInit	16	static,ignoring_inline_asm
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/stm32f4xx.c:207:6:SystemCoreClockUpdate	32	static

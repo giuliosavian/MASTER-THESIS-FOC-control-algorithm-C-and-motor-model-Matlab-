@@ -1,0 +1,6 @@
+bsp/debug/systemview/SEGGER_RTT_ASM_ARMv7M.o: \
+ C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_RTT_ASM_ARMv7M.S \
+ C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_RTT.h \
+ C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_RTT_Conf.h
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_RTT.h:
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/SEGGER_RTT_Conf.h:

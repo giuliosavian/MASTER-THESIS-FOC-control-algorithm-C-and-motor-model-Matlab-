@@ -1,0 +1,4 @@
+C:/Users/gsavian/Desktop/bldcmotor-main/FW/bsp/driver/bldc/chargebootcap.c:22:6:TSK_SetChargeBootCapDelayM1	16	static
+C:/Users/gsavian/Desktop/bldcmotor-main/FW/bsp/driver/bldc/chargebootcap.c:33:6:TSK_ChargeBootCapDelayHasElapsedM1	16	static
+C:/Users/gsavian/Desktop/bldcmotor-main/FW/bsp/driver/bldc/chargebootcap.c:49:6:TSK_SetStopPermanencyTimeM1	16	static
+C:/Users/gsavian/Desktop/bldcmotor-main/FW/bsp/driver/bldc/chargebootcap.c:60:6:TSK_StopPermanencyTimeHasElapsedM1	16	static

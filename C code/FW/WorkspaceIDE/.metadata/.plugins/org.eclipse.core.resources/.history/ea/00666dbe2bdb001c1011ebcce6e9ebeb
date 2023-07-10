@@ -1,0 +1,17 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/motor_bldc.c:50:13:_drive	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/motor_bldc.c:62:27:tick1ms_work	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/motor_bldc.c:112:6:MOTOR_Init	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/motor_bldc.c:133:6:MOTOR_Start	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/motor_bldc.c:146:6:MOTOR_Stopping	4	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/motor_bldc.c:151:6:MOTOR_Stop	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/motor_bldc.c:158:6:MOTOR_IsOn	4	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/motor_bldc.c:163:6:MOTOR_NewStepIn	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/motor_bldc.c:169:6:MOTOR_SetIlim	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/motor_bldc.c:175:7:MOTOR_GetCurrentPow	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/motor_bldc.c:180:10:MOTOR_GetImot	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/motor_bldc.c:185:10:MOTOR_GetILim	4	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/motor_bldc.c:190:6:MOTOR_SetPow	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/motor_bldc.c:195:6:MOTOR_SetSpeedFilterCoeff	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/motor_bldc.c:200:7:MOTOR_GetSpeed	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/motor_bldc.c:206:10:MOTOR_GetDirection	4	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/engine/motor_bldc.c:211:10:MOTOR_GetIline	4	static

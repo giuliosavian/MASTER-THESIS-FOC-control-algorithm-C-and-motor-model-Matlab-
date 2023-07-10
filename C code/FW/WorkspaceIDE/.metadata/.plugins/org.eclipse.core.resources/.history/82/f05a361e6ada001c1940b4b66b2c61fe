@@ -1,0 +1,4 @@
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/MCSDK_v5.Y.4-Full/MotorControl/MCSDK/MCLib/Any/Src/motor_power_measurement.c:50:13:MPM_Clear	8	static
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/MCSDK_v5.Y.4-Full/MotorControl/MCSDK/MCLib/Any/Src/motor_power_measurement.c:80:16:MPM_CalcElMotorPower	4	static
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/MCSDK_v5.Y.4-Full/MotorControl/MCSDK/MCLib/Any/Src/motor_power_measurement.c:122:16:MPM_GetElMotorPowerW	0	static
+C:/Users/gsavian/Desktop/c projects/bldc motor/foc control/F4012RE/nouart/MCSDK_v5.Y.4-Full/MotorControl/MCSDK/MCLib/Any/Src/motor_power_measurement.c:137:16:MPM_GetAvrgElMotorPowerW	0	static

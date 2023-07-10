@@ -1,0 +1,17 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_spi.c:40:6:HALI_SPI_Init	40	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_spi.c:121:6:HALI_SPI_Deinit	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_spi.c:128:6:HALI_SPI_Enable	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_spi.c:133:6:HALI_SPI_Disable	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_spi.c:153:6:HALI_SPI_EnableIrq	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_spi.c:161:6:HALI_SPI_DisableIrq	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_spi.c:168:6:HALI_SPI_Put	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_spi.c:203:10:HALI_SPI_Get	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_spi.c:212:10:HALI_SPI_Rdr	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_spi.c:218:6:HALI_SPI_Wdr	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_spi.c:224:6:HALI_SPI_SetEventCallback	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_spi.c:229:6:HALI_SPI_StopTransfer	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_spi.c:246:6:HALI_SPI_Tx	48	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_spi.c:276:6:HALI_SPI_Rx	48	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_spi.c:321:6:HALI_SPI_TxRx	48	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_spi.c:352:13:HALI_SPI_RX_DMA_IRQ_Callback	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_spi.c:417:13:HALI_SPI_TX_DMA_IRQ_Callback	24	static

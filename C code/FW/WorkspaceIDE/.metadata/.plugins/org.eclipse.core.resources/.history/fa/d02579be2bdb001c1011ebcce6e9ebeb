@@ -1,0 +1,6 @@
+"./app/engine/engine_bldc.o"
+"./app/engine/motor_bldc.o"
+"./app/engine/pid.o"
+"./app/main.o"
+"./app/powermanager.o"
+"./app/modules/module_adc.o"

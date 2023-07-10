@@ -1,0 +1,6 @@
+bsp/debug/systemview/Syscalls/SEGGER_RTT_Syscalls_GCC.o: \
+ C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/debug/systemview/Syscalls/SEGGER_RTT_Syscalls_GCC.c \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\debug\systemview\segger_rtt.h \
+ c:\users\gsavian\desktop\bldcmotor\fw\bsp\debug\systemview\SEGGER_RTT_Conf.h
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\debug\systemview\segger_rtt.h:
+c:\users\gsavian\desktop\bldcmotor\fw\bsp\debug\systemview\SEGGER_RTT_Conf.h:

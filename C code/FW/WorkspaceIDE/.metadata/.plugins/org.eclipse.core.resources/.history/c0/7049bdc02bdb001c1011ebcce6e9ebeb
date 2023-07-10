@@ -1,0 +1,13 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_rtc.c:34:13:config_date	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_rtc.c:46:13:config_time	40	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_rtc.c:72:10:HALI_RTC_BkpRead	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_rtc.c:80:6:HALI_RTC_BkpWrite	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_rtc.c:89:6:HALI_RTC_Init	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_rtc.c:144:6:HALI_RTC_Deinit	4	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_rtc.c:149:6:HALI_RTC_Set	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_rtc.c:156:6:HALI_RTC_Get	48	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_rtc.c:171:6:HALI_RTC_IsValid	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_rtc.c:180:6:HALI_RTC_Invalidate	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_rtc.c:193:13:ic_callback	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_rtc.c:214:17:GetLSIFrequency	4	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/bsp/platform/STM32F4/hll/hll_rtc.c:252:13:calib_lsi	48	static

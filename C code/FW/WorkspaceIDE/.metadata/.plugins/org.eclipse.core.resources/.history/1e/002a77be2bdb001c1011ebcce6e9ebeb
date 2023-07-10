@@ -1,0 +1,7 @@
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/powermanager.c:17:27:tick1s_work	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/powermanager.c:23:6:PowerInit	32	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/powermanager.c:39:6:PowerOn	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/powermanager.c:45:6:PowerOff	8	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/powermanager.c:51:6:PowerExecApp	16	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/powermanager.c:60:6:pin_callback	24	static
+C:/Users/gsavian/Desktop/bldcmotor/FW/app/powermanager.c:65:6:task_work	24	static
